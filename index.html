@@ -1,181 +1,952 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Ghost of Yōtei Database</title>
-
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghost of Yōtei Legends — Community Database</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <header>
-    <h1>Ghost of Yōtei Database</h1>
+  <!-- NOISE OVERLAY -->
+  <div class="noise-overlay"></div>
 
-    <nav>
-      <button onclick="showPage('home')">Home</button>
-      <button onclick="showPage('samurai')">Samurai</button>
-      <button onclick="showPage('archer')">Archer</button>
-      <button onclick="showPage('mercenary')">Mercenary</button>
-      <button onclick="showPage('shinobi')">Shinobi</button>
-      <button onclick="showPage('builds')">Builds</button>
-      <button onclick="showPage('fits')">Fits</button>
-      <button onclick="showPage('mechanics')">Mechanics</button>
-    </nav>
-  </header>
+  <!-- MIST LAYERS -->
+  <div class="mist mist-1"></div>
+  <div class="mist mist-2"></div>
+  <div class="mist mist-3"></div>
 
-  <main>
+  <!-- ==================== NAV ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="nav-logo-jp">幽霊</span>
+      <div class="nav-logo-text">
+        <span class="nav-title">Ghost of Yōtei</span>
+        <span class="nav-sub">Legends Database</span>
+      </div>
+    </div>
 
-    <section id="home" class="page active">
-      <h2>Community Made Database</h2>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
 
-      <div class="grid">
-        <div class="card">
-          <h3>Samurai</h3>
-          <p>Tanky melee class.</p>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+      <li><a href="#" class="nav-link" data-page="samurai">Samurai</a></li>
+      <li><a href="#" class="nav-link" data-page="archer">Archer</a></li>
+      <li><a href="#" class="nav-link" data-page="mercenary">Mercenary</a></li>
+      <li><a href="#" class="nav-link" data-page="shinobi">Shinobi</a></li>
+      <li><a href="#" class="nav-link" data-page="builds">Builds</a></li>
+      <li><a href="#" class="nav-link" data-page="fits">Fits</a></li>
+      <li><a href="#" class="nav-link" data-page="mechanics">Mechanics</a></li>
+      <li><a href="#" class="nav-link" data-page="patchnotes">Patch Notes</a></li>
+      <li><a href="#" class="nav-link" data-page="guides">Guides</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <section class="page active" id="page-home">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-bg">
+        <div class="hero-gradient"></div>
+        <div class="hero-lines"></div>
+      </div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">Community Database</p>
+        <h1 class="hero-title">
+          <span class="hero-title-jp">幽霊の余地</span>
+          <span class="hero-title-en">Ghost of Yōtei</span>
+          <span class="hero-title-sub">LEGENDS</span>
+        </h1>
+        <div class="hero-divider">
+          <span class="hero-divider-line"></span>
+          <span class="hero-divider-glyph">⊕</span>
+          <span class="hero-divider-line"></span>
+        </div>
+        <p class="hero-desc">
+          A community-crafted archive of builds, techniques, and forbidden knowledge.<br/>
+          Forged by warriors. Preserved for legends.
+        </p>
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="switchPage('builds')">Explore Builds</button>
+          <button class="btn-ghost" onclick="switchPage('guides')">Read Guides</button>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="hero-scroll-line"></div>
+      </div>
+    </div>
+
+    <!-- COMMUNITY SECTION -->
+    <div class="section community-section">
+      <div class="section-inner">
+        <div class="section-badge">About This Archive</div>
+        <h2 class="section-title">Built by the Community,<br/><em>For the Fallen</em></h2>
+        <p class="section-desc">
+          Ghost of Yōtei Legends is a living, breathing database maintained entirely by dedicated players.
+          Every build, technique, and piece of lore is community-verified and regularly updated with each new patch.
+          Whether you seek mastery in combat or the perfect drip for your ghost, this is your sanctuary.
+        </p>
+        <div class="community-stats">
+          <div class="stat-item">
+            <span class="stat-num">247</span>
+            <span class="stat-label">Builds</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">83</span>
+            <span class="stat-label">Guides</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">1.4k</span>
+            <span class="stat-label">Contributors</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">v1.08</span>
+            <span class="stat-label">Current Patch</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLASS CARDS -->
+    <div class="section classes-section">
+      <div class="section-inner">
+        <div class="section-badge">Choose Your Path</div>
+        <h2 class="section-title">The Four Ways<br/><em>of the Ghost</em></h2>
+        <div class="class-grid">
+
+          <div class="class-card samurai-card" onclick="switchPage('samurai')">
+            <div class="class-card-bg"></div>
+            <div class="class-card-glow"></div>
+            <div class="class-card-content">
+              <div class="class-icon">⚔</div>
+              <div class="class-jp">侍</div>
+              <h3 class="class-name">Samurai</h3>
+              <p class="class-desc">Honor forged in steel. The Samurai masters the katana with devastating precision, wielding both power and discipline as one.</p>
+              <div class="class-tags">
+                <span class="tag">Melee</span>
+                <span class="tag">Armor</span>
+                <span class="tag">Stance</span>
+              </div>
+              <div class="class-cta">Explore Class →</div>
+            </div>
+          </div>
+
+          <div class="class-card archer-card" onclick="switchPage('archer')">
+            <div class="class-card-bg"></div>
+            <div class="class-card-glow"></div>
+            <div class="class-card-content">
+              <div class="class-icon">🏹</div>
+              <div class="class-jp">弓</div>
+              <h3 class="class-name">Archer</h3>
+              <p class="class-desc">Silent. Patient. Lethal. The Archer strikes from the shadows of distance, turning breath into bullets and patience into prey.</p>
+              <div class="class-tags">
+                <span class="tag">Ranged</span>
+                <span class="tag">Precision</span>
+                <span class="tag">Stealth</span>
+              </div>
+              <div class="class-cta">Explore Class →</div>
+            </div>
+          </div>
+
+          <div class="class-card mercenary-card" onclick="switchPage('mercenary')">
+            <div class="class-card-bg"></div>
+            <div class="class-card-glow"></div>
+            <div class="class-card-content">
+              <div class="class-icon">⚙</div>
+              <div class="class-jp">傭兵</div>
+              <h3 class="class-name">Mercenary</h3>
+              <p class="class-desc">Ruthless adaptability. The Mercenary thrives in chaos, blending raw aggression with cunning versatility on any battlefield.</p>
+              <div class="class-tags">
+                <span class="tag">Hybrid</span>
+                <span class="tag">Explosives</span>
+                <span class="tag">Versatile</span>
+              </div>
+              <div class="class-cta">Explore Class →</div>
+            </div>
+          </div>
+
+          <div class="class-card shinobi-card" onclick="switchPage('shinobi')">
+            <div class="class-card-bg"></div>
+            <div class="class-card-glow"></div>
+            <div class="class-card-content">
+              <div class="class-icon">🌑</div>
+              <div class="class-jp">忍</div>
+              <h3 class="class-name">Shinobi</h3>
+              <p class="class-desc">Become the darkness. The Shinobi is ghost given form — smoke, silence, and death flowing through shadows unseen.</p>
+              <div class="class-tags">
+                <span class="tag">Stealth</span>
+                <span class="tag">Mobility</span>
+                <span class="tag">Assassination</span>
+              </div>
+              <div class="class-cta">Explore Class →</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== SAMURAI PAGE ==================== -->
+  <section class="page" id="page-samurai">
+    <div class="page-hero class-page-hero samurai-hero">
+      <div class="page-hero-content">
+        <div class="class-jp-large">侍</div>
+        <h1 class="page-hero-title">Samurai</h1>
+        <p class="page-hero-desc">Honor. Discipline. Steel.</p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-inner">
+        <div class="info-grid">
+          <div class="info-card">
+            <h3 class="info-card-title">⚔ Playstyle</h3>
+            <p>The Samurai excels in direct, honorable combat. High defense values and devastating katana combos make this class ideal for players who prefer deliberate, powerful strikes over evasion.</p>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">🛡 Strengths</h3>
+            <ul class="info-list">
+              <li>Highest base armor rating</li>
+              <li>Access to exclusive Stance abilities</li>
+              <li>Devastating parry windows</li>
+              <li>Strong against armored enemies</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">⚠ Weaknesses</h3>
+            <ul class="info-list">
+              <li>Low mobility compared to Shinobi</li>
+              <li>Struggles against ranged swarms</li>
+              <li>Resource-heavy stance management</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">🗡 Core Techniques</h3>
+            <ul class="info-list">
+              <li>Iron Will — Unstoppable charge stance</li>
+              <li>Deflect Mastery — Perfect parry window</li>
+              <li>Honored Blade — Katana damage boost</li>
+              <li>Heaven's Descent — AOE katana slam</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ARCHER PAGE ==================== -->
+  <section class="page" id="page-archer">
+    <div class="page-hero class-page-hero archer-hero">
+      <div class="page-hero-content">
+        <div class="class-jp-large">弓</div>
+        <h1 class="page-hero-title">Archer</h1>
+        <p class="page-hero-desc">Patience. Precision. Silence.</p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-inner">
+        <div class="info-grid">
+          <div class="info-card">
+            <h3 class="info-card-title">🏹 Playstyle</h3>
+            <p>The Archer controls engagements from afar, rewarding patience and positioning. High burst damage paired with stealth integration makes this class a nightmare for any enemy unlucky enough to be targeted.</p>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">🛡 Strengths</h3>
+            <ul class="info-list">
+              <li>Highest single-target damage</li>
+              <li>Exceptional stealth synergy</li>
+              <li>Explosive arrow variants</li>
+              <li>Long-range zone control</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">⚠ Weaknesses</h3>
+            <ul class="info-list">
+              <li>Vulnerable in close quarters</li>
+              <li>Limited ammo reserves</li>
+              <li>Needs high ground positioning</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">🗡 Core Techniques</h3>
+            <ul class="info-list">
+              <li>Eagle Eye — Extended aim duration</li>
+              <li>Breathless — Slows time on aim</li>
+              <li>Phantom Arrow — Silent shot</li>
+              <li>Volley — Multi-arrow scatter shot</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MERCENARY PAGE ==================== -->
+  <section class="page" id="page-mercenary">
+    <div class="page-hero class-page-hero mercenary-hero">
+      <div class="page-hero-content">
+        <div class="class-jp-large">傭兵</div>
+        <h1 class="page-hero-title">Mercenary</h1>
+        <p class="page-hero-desc">Adaptability. Chaos. Survival.</p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-inner">
+        <div class="info-grid">
+          <div class="info-card">
+            <h3 class="info-card-title">⚙ Playstyle</h3>
+            <p>The Mercenary is built for those who refuse to be boxed in. Explosive utility, hybrid weapon access, and raw aggression make this class the most versatile option for any scenario.</p>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">🛡 Strengths</h3>
+            <ul class="info-list">
+              <li>Access to all weapon categories</li>
+              <li>Explosive and trap utility</li>
+              <li>High adaptability mid-fight</li>
+              <li>Best multi-target clearance</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">⚠ Weaknesses</h3>
+            <ul class="info-list">
+              <li>No class specialization bonus</li>
+              <li>Gear cost is highest</li>
+              <li>Stealth is limited</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">🗡 Core Techniques</h3>
+            <ul class="info-list">
+              <li>Iron Gambit — Risk/reward stance</li>
+              <li>Smoke Bomb — AoE blind</li>
+              <li>Grenadier — Explosive cooldown cut</li>
+              <li>Brutalize — Executions restore health</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SHINOBI PAGE ==================== -->
+  <section class="page" id="page-shinobi">
+    <div class="page-hero class-page-hero shinobi-hero">
+      <div class="page-hero-content">
+        <div class="class-jp-large">忍</div>
+        <h1 class="page-hero-title">Shinobi</h1>
+        <p class="page-hero-desc">Shadow. Smoke. Death.</p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-inner">
+        <div class="info-grid">
+          <div class="info-card">
+            <h3 class="info-card-title">🌑 Playstyle</h3>
+            <p>The Shinobi is the most mechanically demanding class, rewarding aggressive positioning, speed, and precise timing. High kill potential offset by razor-thin survivability.</p>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">🛡 Strengths</h3>
+            <ul class="info-list">
+              <li>Fastest base movement speed</li>
+              <li>Best assassination damage</li>
+              <li>Grapple and traversal tools</li>
+              <li>Stealth chain kills</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">⚠ Weaknesses</h3>
+            <ul class="info-list">
+              <li>Lowest base health pool</li>
+              <li>Punished heavily for exposure</li>
+              <li>High skill floor requirement</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3 class="info-card-title">🗡 Core Techniques</h3>
+            <ul class="info-list">
+              <li>Phantom Step — Instant repositioning</li>
+              <li>Death Blossom — Rapid dagger flurry</li>
+              <li>Vanish — Combat stealth reset</li>
+              <li>Kunai Storm — Ranged projectile burst</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BUILDS PAGE ==================== -->
+  <section class="page" id="page-builds">
+    <div class="page-hero simple-hero">
+      <div class="page-hero-content">
+        <h1 class="page-hero-title">Community Builds</h1>
+        <p class="page-hero-desc">Tested. Refined. Lethal.</p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-inner">
+        <div class="page-toolbar">
+          <h2 class="toolbar-title">All Builds <span class="count-badge">12</span></h2>
+          <button class="btn-contribute" onclick="openModal('build')">+ Contribute Build</button>
         </div>
 
-        <div class="card">
-          <h3>Archer</h3>
-          <p>High ranged damage.</p>
+        <div class="builds-grid">
+
+          <div class="build-card">
+            <div class="build-card-header">
+              <span class="build-class-tag samurai-tag">Samurai</span>
+              <span class="community-tag">Community Made</span>
+            </div>
+            <h3 class="build-name">Crimson Parry Master</h3>
+            <div class="build-details">
+              <div class="build-row"><span class="build-label">Weapon</span><span class="build-value">Ashina Katana +9</span></div>
+              <div class="build-row"><span class="build-label">Techniques</span><span class="build-value">Iron Will, Deflect Mastery, Honored Blade</span></div>
+              <div class="build-row"><span class="build-label">Gear</span><span class="build-value">Warrior's Hauberk, Stone Ring, Kōhai Talisman</span></div>
+              <div class="build-row"><span class="build-label">Mode</span><span class="build-value">PvE — Lethal</span></div>
+              <div class="build-row"><span class="build-label">Patch</span><span class="build-value">v1.08</span></div>
+            </div>
+          </div>
+
+          <div class="build-card">
+            <div class="build-card-header">
+              <span class="build-class-tag shinobi-tag">Shinobi</span>
+              <span class="community-tag">Community Made</span>
+            </div>
+            <h3 class="build-name">Ghost Protocol</h3>
+            <div class="build-details">
+              <div class="build-row"><span class="build-label">Weapon</span><span class="build-value">Shadow Tanto +7</span></div>
+              <div class="build-row"><span class="build-label">Techniques</span><span class="build-value">Vanish, Death Blossom, Phantom Step</span></div>
+              <div class="build-row"><span class="build-label">Gear</span><span class="build-value">Void Wrappings, Echo Sandals, Smoke Charm</span></div>
+              <div class="build-row"><span class="build-label">Mode</span><span class="build-value">PvP — Speed</span></div>
+              <div class="build-row"><span class="build-label">Patch</span><span class="build-value">v1.08</span></div>
+            </div>
+          </div>
+
+          <div class="build-card">
+            <div class="build-card-header">
+              <span class="build-class-tag archer-tag">Archer</span>
+              <span class="community-tag">Community Made</span>
+            </div>
+            <h3 class="build-name">The Silent Storm</h3>
+            <div class="build-details">
+              <div class="build-row"><span class="build-label">Weapon</span><span class="build-value">Crimson Yumi Bow +8</span></div>
+              <div class="build-row"><span class="build-label">Techniques</span><span class="build-value">Eagle Eye, Breathless, Phantom Arrow</span></div>
+              <div class="build-row"><span class="build-label">Gear</span><span class="build-value">Hunter's Wrap, Falcon Lens, Whisper Quiver</span></div>
+              <div class="build-row"><span class="build-label">Mode</span><span class="build-value">PvE — Stealth</span></div>
+              <div class="build-row"><span class="build-label">Patch</span><span class="build-value">v1.07</span></div>
+            </div>
+          </div>
+
+          <div class="build-card">
+            <div class="build-card-header">
+              <span class="build-class-tag mercenary-tag">Mercenary</span>
+              <span class="community-tag">Community Made</span>
+            </div>
+            <h3 class="build-name">Chaos Reaper</h3>
+            <div class="build-details">
+              <div class="build-row"><span class="build-label">Weapon</span><span class="build-value">War Naginata +6 / Hand Cannon</span></div>
+              <div class="build-row"><span class="build-label">Techniques</span><span class="build-value">Grenadier, Brutalize, Iron Gambit</span></div>
+              <div class="build-row"><span class="build-label">Gear</span><span class="build-value">Iron Plate Vest, Warlord Gauntlets, Blast Pouch</span></div>
+              <div class="build-row"><span class="build-label">Mode</span><span class="build-value">PvP — Aggro</span></div>
+              <div class="build-row"><span class="build-label">Patch</span><span class="build-value">v1.08</span></div>
+            </div>
+          </div>
+
+          <div class="build-card">
+            <div class="build-card-header">
+              <span class="build-class-tag samurai-tag">Samurai</span>
+              <span class="community-tag">Community Made</span>
+            </div>
+            <h3 class="build-name">Heaven's Descent Tank</h3>
+            <div class="build-details">
+              <div class="build-row"><span class="build-label">Weapon</span><span class="build-value">Obsidian Odachi +10</span></div>
+              <div class="build-row"><span class="build-label">Techniques</span><span class="build-value">Heaven's Descent, Stone Skin, War Cry</span></div>
+              <div class="build-row"><span class="build-label">Gear</span><span class="build-value">Full Oni Plate, Jade Amulet, Oni Mask</span></div>
+              <div class="build-row"><span class="build-label">Mode</span><span class="build-value">PvE — Boss Killer</span></div>
+              <div class="build-row"><span class="build-label">Patch</span><span class="build-value">v1.08</span></div>
+            </div>
+          </div>
+
+          <div class="build-card">
+            <div class="build-card-header">
+              <span class="build-class-tag shinobi-tag">Shinobi</span>
+              <span class="community-tag">Community Made</span>
+            </div>
+            <h3 class="build-name">Kunai Spammer</h3>
+            <div class="build-details">
+              <div class="build-row"><span class="build-label">Weapon</span><span class="build-value">Twin Blades +8</span></div>
+              <div class="build-row"><span class="build-label">Techniques</span><span class="build-value">Kunai Storm, Vanish, Shadow Surge</span></div>
+              <div class="build-row"><span class="build-label">Gear</span><span class="build-value">Featherweight Wraps, Speed Talisman, Echo Ring</span></div>
+              <div class="build-row"><span class="build-label">Mode</span><span class="build-value">PvP — Zoning</span></div>
+              <div class="build-row"><span class="build-label">Patch</span><span class="build-value">v1.08</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FITS PAGE ==================== -->
+  <section class="page" id="page-fits">
+    <div class="page-hero simple-hero">
+      <div class="page-hero-content">
+        <h1 class="page-hero-title">Fits Gallery</h1>
+        <p class="page-hero-desc">Style is its own armor.</p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-inner">
+        <div class="page-toolbar">
+          <h2 class="toolbar-title">All Fits <span class="count-badge">8</span></h2>
+          <button class="btn-contribute" onclick="openModal('fit')">+ Contribute Fit</button>
         </div>
 
-        <div class="card">
-          <h3>Mercenary</h3>
-          <p>Support and utility.</p>
+        <div class="fits-grid">
+
+          <div class="fit-card">
+            <div class="fit-card-banner fit-banner-1">
+              <div class="fit-banner-text">侍</div>
+            </div>
+            <div class="fit-card-body">
+              <div class="fit-header">
+                <h3 class="fit-name">Crimson Shadow</h3>
+                <span class="fit-class-tag samurai-tag">Samurai</span>
+              </div>
+              <div class="fit-pieces">
+                <div class="fit-piece"><span class="piece-slot">Head</span><span class="piece-name">Oni Demon Mask</span></div>
+                <div class="fit-piece"><span class="piece-slot">Chest</span><span class="piece-name">Black Lamellar Armor</span></div>
+                <div class="fit-piece"><span class="piece-slot">Hands</span><span class="piece-name">Warlord Gauntlets</span></div>
+                <div class="fit-piece"><span class="piece-slot">Legs</span><span class="piece-name">Ashina War Skirt</span></div>
+              </div>
+              <p class="fit-note">Full black with crimson detail. The Oni mask makes enemies hesitate.</p>
+            </div>
+          </div>
+
+          <div class="fit-card">
+            <div class="fit-card-banner fit-banner-2">
+              <div class="fit-banner-text">忍</div>
+            </div>
+            <div class="fit-card-body">
+              <div class="fit-header">
+                <h3 class="fit-name">Void Walker</h3>
+                <span class="fit-class-tag shinobi-tag">Shinobi</span>
+              </div>
+              <div class="fit-pieces">
+                <div class="fit-piece"><span class="piece-slot">Head</span><span class="piece-name">Wraith's Cowl</span></div>
+                <div class="fit-piece"><span class="piece-slot">Chest</span><span class="piece-name">Midnight Shinobi Wrap</span></div>
+                <div class="fit-piece"><span class="piece-slot">Hands</span><span class="piece-name">Feather Bindings</span></div>
+                <div class="fit-piece"><span class="piece-slot">Legs</span><span class="piece-name">Silent Step Sandals</span></div>
+              </div>
+              <p class="fit-note">Absolute darkness. No reflections. You become the shadow.</p>
+            </div>
+          </div>
+
+          <div class="fit-card">
+            <div class="fit-card-banner fit-banner-3">
+              <div class="fit-banner-text">弓</div>
+            </div>
+            <div class="fit-card-body">
+              <div class="fit-header">
+                <h3 class="fit-name">Mountain Ghost</h3>
+                <span class="fit-class-tag archer-tag">Archer</span>
+              </div>
+              <div class="fit-pieces">
+                <div class="fit-piece"><span class="piece-slot">Head</span><span class="piece-name">Hunter's Kasa Hat</span></div>
+                <div class="fit-piece"><span class="piece-slot">Chest</span><span class="piece-name">Grey Ranger Cloak</span></div>
+                <div class="fit-piece"><span class="piece-slot">Hands</span><span class="piece-name">Falcon Bracers</span></div>
+                <div class="fit-piece"><span class="piece-slot">Legs</span><span class="piece-name">Tracked Leather Leggings</span></div>
+              </div>
+              <p class="fit-note">Muted tones blend into the mountain fog. Perfect for long-range work.</p>
+            </div>
+          </div>
+
+          <div class="fit-card">
+            <div class="fit-card-banner fit-banner-4">
+              <div class="fit-banner-text">傭兵</div>
+            </div>
+            <div class="fit-card-body">
+              <div class="fit-header">
+                <h3 class="fit-name">Iron Warlord</h3>
+                <span class="fit-class-tag mercenary-tag">Mercenary</span>
+              </div>
+              <div class="fit-pieces">
+                <div class="fit-piece"><span class="piece-slot">Head</span><span class="piece-name">War Kabuto Helm</span></div>
+                <div class="fit-piece"><span class="piece-slot">Chest</span><span class="piece-name">Ironclad Battle Vest</span></div>
+                <div class="fit-piece"><span class="piece-slot">Hands</span><span class="piece-name">Siege Gauntlets</span></div>
+                <div class="fit-piece"><span class="piece-slot">Legs</span><span class="piece-name">Warlord's Tabi</span></div>
+              </div>
+              <p class="fit-note">Max intimidation. Heavy plate that says: don't run, it won't help.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MECHANICS PAGE ==================== -->
+  <section class="page" id="page-mechanics">
+    <div class="page-hero simple-hero">
+      <div class="page-hero-content">
+        <h1 class="page-hero-title">Mechanics</h1>
+        <p class="page-hero-desc">Master the hidden language of combat.</p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-inner">
+        <div class="page-toolbar">
+          <h2 class="toolbar-title">Tech Library <span class="count-badge">5</span></h2>
+          <button class="btn-contribute" onclick="openModal('mechanic')">+ Contribute Mechanic</button>
         </div>
 
-        <div class="card">
-          <h3>Shinobi</h3>
-          <p>Mobility and burst damage.</p>
+        <div class="mechanics-grid">
+
+          <div class="mechanic-card featured-mechanic">
+            <div class="mechanic-card-header">
+              <div>
+                <div class="mechanic-type-badge">Movement Tech</div>
+                <h3 class="mechanic-name">Kurosignmare Sprint Cancel</h3>
+              </div>
+              <span class="community-tag">Community Found</span>
+            </div>
+            <div class="mechanic-input">
+              <span class="input-label">Input Sequence</span>
+              <div class="input-sequence">
+                <span class="input-btn">Sprint</span>
+                <span class="input-arrow">→</span>
+                <span class="input-btn">Square</span>
+                <span class="input-arrow">→</span>
+                <span class="input-btn">Circle (spam)</span>
+              </div>
+            </div>
+            <p class="mechanic-desc">Cancels sprint recovery frames allowing near-instant ability reactivation. Chaining this with Phantom Step creates an almost untraceable movement pattern. Extremely effective in PvP for gap closing and escape.</p>
+            <div class="mechanic-tags">
+              <span class="tag">PvP</span>
+              <span class="tag">Shinobi</span>
+              <span class="tag">Frame Cancel</span>
+              <span class="tag">Advanced</span>
+            </div>
+          </div>
+
+          <div class="mechanic-card">
+            <div class="mechanic-card-header">
+              <div>
+                <div class="mechanic-type-badge type-combat">Combat Tech</div>
+                <h3 class="mechanic-name">Parry Dash Extension</h3>
+              </div>
+              <span class="community-tag">Community Found</span>
+            </div>
+            <div class="mechanic-input">
+              <span class="input-label">Input Sequence</span>
+              <div class="input-sequence">
+                <span class="input-btn">L1</span>
+                <span class="input-arrow">→</span>
+                <span class="input-btn">R2</span>
+                <span class="input-arrow">+</span>
+                <span class="input-btn">Dodge</span>
+              </div>
+            </div>
+            <p class="mechanic-desc">Extends the active window of a perfect parry into a dash, allowing repositioning without losing the parry bonus damage multiplier.</p>
+            <div class="mechanic-tags">
+              <span class="tag">Samurai</span>
+              <span class="tag">Parry</span>
+              <span class="tag">Intermediate</span>
+            </div>
+          </div>
+
+          <div class="mechanic-card">
+            <div class="mechanic-card-header">
+              <div>
+                <div class="mechanic-type-badge type-stealth">Stealth Tech</div>
+                <h3 class="mechanic-name">Ghost Crouch Glide</h3>
+              </div>
+              <span class="community-tag">Community Found</span>
+            </div>
+            <div class="mechanic-input">
+              <span class="input-label">Input Sequence</span>
+              <div class="input-sequence">
+                <span class="input-btn">Crouch</span>
+                <span class="input-arrow">→</span>
+                <span class="input-btn">Jump</span>
+                <span class="input-arrow">→</span>
+                <span class="input-btn">Hold R2</span>
+              </div>
+            </div>
+            <p class="mechanic-desc">Activating crouch mid-jump with a held attack creates a silent aerial glide that maintains stealth status. Useful for closing distance on unaware enemies from elevation.</p>
+            <div class="mechanic-tags">
+              <span class="tag">Shinobi</span>
+              <span class="tag">Stealth</span>
+              <span class="tag">Beginner</span>
+            </div>
+          </div>
+
+          <div class="mechanic-card">
+            <div class="mechanic-card-header">
+              <div>
+                <div class="mechanic-type-badge type-utility">Utility Tech</div>
+                <h3 class="mechanic-name">Smoke Bomb Bait Cancel</h3>
+              </div>
+              <span class="community-tag">Community Found</span>
+            </div>
+            <div class="mechanic-input">
+              <span class="input-label">Input Sequence</span>
+              <div class="input-sequence">
+                <span class="input-btn">Smoke Bomb</span>
+                <span class="input-arrow">→</span>
+                <span class="input-btn">Dodge Back</span>
+                <span class="input-arrow">→</span>
+                <span class="input-btn">Heavy Attack</span>
+              </div>
+            </div>
+            <p class="mechanic-desc">Throw smoke, bait the enemy's blind swing, dodge backwards to avoid, then punish with a fully charged heavy attack during their recovery frames.</p>
+            <div class="mechanic-tags">
+              <span class="tag">Mercenary</span>
+              <span class="tag">Mind Games</span>
+              <span class="tag">Advanced</span>
+            </div>
+          </div>
+
+          <div class="mechanic-card">
+            <div class="mechanic-card-header">
+              <div>
+                <div class="mechanic-type-badge">Movement Tech</div>
+                <h3 class="mechanic-name">Wall Kick Boost</h3>
+              </div>
+              <span class="community-tag">Community Found</span>
+            </div>
+            <div class="mechanic-input">
+              <span class="input-label">Input Sequence</span>
+              <div class="input-sequence">
+                <span class="input-btn">Sprint → Wall</span>
+                <span class="input-arrow">→</span>
+                <span class="input-btn">X (Jump)</span>
+                <span class="input-arrow">→</span>
+                <span class="input-btn">Grapple</span>
+              </div>
+            </div>
+            <p class="mechanic-desc">Sprinting into a wall and immediately jumping gives a horizontal boost that extends grapple range. Allows traversal of gaps that would otherwise be impossible.</p>
+            <div class="mechanic-tags">
+              <span class="tag">All Classes</span>
+              <span class="tag">Traversal</span>
+              <span class="tag">Beginner</span>
+            </div>
+          </div>
+
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="samurai" class="page">
-      <h2>Samurai</h2>
-      <div class="card">
-        <p>Samurai builds and guides.</p>
+  <!-- ==================== PATCH NOTES PAGE ==================== -->
+  <section class="page" id="page-patchnotes">
+    <div class="page-hero simple-hero">
+      <div class="page-hero-content">
+        <h1 class="page-hero-title">Patch Notes</h1>
+        <p class="page-hero-desc">Every change. Every nerf. Every truth.</p>
       </div>
-    </section>
+    </div>
+    <div class="section">
+      <div class="section-inner">
 
-    <section id="archer" class="page">
-      <h2>Archer</h2>
-      <div class="card">
-        <p>Archer builds and guides.</p>
-      </div>
-    </section>
-
-    <section id="mercenary" class="page">
-      <h2>Mercenary</h2>
-      <div class="card">
-        <p>Mercenary builds and guides.</p>
-      </div>
-    </section>
-
-    <section id="shinobi" class="page">
-      <h2>Shinobi</h2>
-      <div class="card">
-        <p>Shinobi builds and guides.</p>
-      </div>
-    </section>
-
-    <section id="builds" class="page">
-      <div class="top">
-        <h2>Community Made Builds</h2>
-
-        <button class="red-button">
-          + Contribute Build
-        </button>
-      </div>
-
-      <div class="grid">
-
-        <div class="card">
-          <span class="tag">Community Made</span>
-
-          <h3>Nightmare Shinobi Build</h3>
-
-          <p>Class: Shinobi</p>
-          <p>Weapon: Iaido Katana</p>
-          <p>Mode: Incursion</p>
+        <div class="patch-card current-patch">
+          <div class="patch-header">
+            <div>
+              <span class="patch-version">v1.08</span>
+              <span class="patch-current-badge">Current</span>
+            </div>
+            <span class="patch-date">May 2, 2025</span>
+          </div>
+          <div class="patch-categories">
+            <div class="patch-category">
+              <h4 class="patch-cat-title buff">⬆ Buffs</h4>
+              <ul class="patch-list">
+                <li>Samurai — Iron Will cooldown reduced from 18s → 14s</li>
+                <li>Archer — Eagle Eye now reduces stamina drain by 20%</li>
+                <li>Shinobi — Vanish now has a 1.5s grace window on activation</li>
+              </ul>
+            </div>
+            <div class="patch-category">
+              <h4 class="patch-cat-title nerf">⬇ Nerfs</h4>
+              <ul class="patch-list">
+                <li>Mercenary — Grenadier cooldown increase 8s → 11s</li>
+                <li>Shinobi — Death Blossom base damage reduced by 12%</li>
+              </ul>
+            </div>
+            <div class="patch-category">
+              <h4 class="patch-cat-title fix">🔧 Bug Fixes</h4>
+              <ul class="patch-list">
+                <li>Fixed parry animation locking players on slopes</li>
+                <li>Resolved smoke bomb visual persisting after death</li>
+                <li>Fixed audio desync on Heaven's Descent ability</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <div class="card">
-          <span class="tag">Community Made</span>
-
-          <h3>Fire Samurai Build</h3>
-
-          <p>Class: Samurai</p>
-          <p>Weapon: Odachi</p>
-          <p>Mode: Survival</p>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="fits" class="page">
-      <div class="top">
-        <h2>Create Fits</h2>
-
-        <button class="red-button">
-          + Contribute Fit
-        </button>
-      </div>
-
-      <div class="grid">
-
-        <div class="card">
-          <h3>Ronin Shadow Fit</h3>
-
-          <p>
-            Dark armor setup with Oni mask and crimson wraps.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>White Wolf Samurai</h3>
-
-          <p>
-            White armor with silver blade cosmetics.
-          </p>
+        <div class="patch-card">
+          <div class="patch-header">
+            <span class="patch-version">v1.07</span>
+            <span class="patch-date">April 14, 2025</span>
+          </div>
+          <div class="patch-categories">
+            <div class="patch-category">
+              <h4 class="patch-cat-title buff">⬆ Buffs</h4>
+              <ul class="patch-list">
+                <li>All classes — Stamina regen increased by 8% globally</li>
+                <li>Mercenary — Iron Gambit duration increased by 2s</li>
+              </ul>
+            </div>
+            <div class="patch-category">
+              <h4 class="patch-cat-title nerf">⬇ Nerfs</h4>
+              <ul class="patch-list">
+                <li>Archer — Phantom Arrow damage reduced 15%</li>
+                <li>Samurai — Heaven's Descent AOE radius reduced</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="mechanics" class="page">
-      <div class="top">
-        <h2>Mechanics & Tech</h2>
-
-        <button class="red-button">
-          + Contribute Mechanic
-        </button>
+  <!-- ==================== GUIDES PAGE ==================== -->
+  <section class="page" id="page-guides">
+    <div class="page-hero simple-hero">
+      <div class="page-hero-content">
+        <h1 class="page-hero-title">Guides</h1>
+        <p class="page-hero-desc">Knowledge is the sharpest weapon.</p>
       </div>
+    </div>
+    <div class="section">
+      <div class="section-inner">
+        <div class="guides-grid">
 
-      <div class="grid">
+          <div class="guide-card guide-featured">
+            <div class="guide-tag-row">
+              <span class="guide-tag beginner-tag">Beginner</span>
+              <span class="guide-tag">All Classes</span>
+            </div>
+            <h3 class="guide-title">Complete Beginner's Handbook</h3>
+            <p class="guide-desc">Everything you need to understand the core systems, class selection, and early-game progression in Ghost of Yōtei. Start here.</p>
+            <div class="guide-meta">
+              <span>By: YōteiVet</span>
+              <span>15 min read</span>
+            </div>
+            <button class="btn-ghost small">Read Guide →</button>
+          </div>
 
-        <div class="card">
-          <h3>Kurosignmare Sprint Cancel</h3>
+          <div class="guide-card">
+            <div class="guide-tag-row">
+              <span class="guide-tag advanced-tag">Advanced</span>
+              <span class="guide-tag samurai-tag">Samurai</span>
+            </div>
+            <h3 class="guide-title">Parry Timing Mastery</h3>
+            <p class="guide-desc">Frame-by-frame breakdown of every enemy parry window and how to exploit them consistently.</p>
+            <div class="guide-meta">
+              <span>By: SteelGhost</span>
+              <span>8 min read</span>
+            </div>
+            <button class="btn-ghost small">Read Guide →</button>
+          </div>
 
-          <p>Type: Movement Tech</p>
+          <div class="guide-card">
+            <div class="guide-tag-row">
+              <span class="guide-tag advanced-tag">Advanced</span>
+              <span class="guide-tag shinobi-tag">Shinobi</span>
+            </div>
+            <h3 class="guide-title">PvP Shinobi Dominance</h3>
+            <p class="guide-desc">How to run Shinobi effectively in competitive lobbies. Movement tech, bait patterns, and optimal matchup strategies.</p>
+            <div class="guide-meta">
+              <span>By: NullShadow</span>
+              <span>12 min read</span>
+            </div>
+            <button class="btn-ghost small">Read Guide →</button>
+          </div>
 
-          <p>
-            Sprint → Square → Circle spam
-          </p>
+          <div class="guide-card">
+            <div class="guide-tag-row">
+              <span class="guide-tag">Intermediate</span>
+              <span class="guide-tag archer-tag">Archer</span>
+            </div>
+            <h3 class="guide-title">Positioning Guide for Archers</h3>
+            <p class="guide-desc">Map callouts, elevation priorities, and rotation timings that turn any Archer into a zone-controlling nightmare.</p>
+            <div class="guide-meta">
+              <span>By: MistArrow</span>
+              <span>10 min read</span>
+            </div>
+            <button class="btn-ghost small">Read Guide →</button>
+          </div>
 
-          <p>
-            Maintains sprint momentum while animation canceling movement slowdown.
-          </p>
+          <div class="guide-card">
+            <div class="guide-tag-row">
+              <span class="guide-tag">Intermediate</span>
+              <span class="guide-tag mercenary-tag">Mercenary</span>
+            </div>
+            <h3 class="guide-title">Explosive Economy Guide</h3>
+            <p class="guide-desc">Managing your Mercenary's explosive resources efficiently across a full session without burning out mid-fight.</p>
+            <div class="guide-meta">
+              <span>By: KaosKen</span>
+              <span>7 min read</span>
+            </div>
+            <button class="btn-ghost small">Read Guide →</button>
+          </div>
+
+          <div class="guide-card">
+            <div class="guide-tag-row">
+              <span class="guide-tag beginner-tag">Beginner</span>
+              <span class="guide-tag">All Classes</span>
+            </div>
+            <h3 class="guide-title">Gear Upgrade Priority</h3>
+            <p class="guide-desc">Which gear pieces to upgrade first, what stats to prioritize, and how to avoid wasting resources on the wrong upgrades.</p>
+            <div class="guide-meta">
+              <span>By: GhostDoc</span>
+              <span>6 min read</span>
+            </div>
+            <button class="btn-ghost small">Read Guide →</button>
+          </div>
+
         </div>
-
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <!-- ==================== MODAL ==================== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h2 class="modal-title" id="modal-title">Contribute</h2>
+      <p class="modal-sub">Thank you for contributing to the community archive. Submissions are reviewed before publishing.</p>
+      <div class="modal-form" id="modal-form"></div>
+      <div class="modal-actions">
+        <button class="btn-primary" onclick="submitContribution()">Submit</button>
+        <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="footer-logo-jp">幽霊の余地</span>
+        <span class="footer-logo-en">Ghost of Yōtei Legends</span>
+      </div>
+      <p class="footer-disc">Community-made fan database. Not affiliated with Sony Interactive Entertainment or Sucker Punch Productions.</p>
+      <p class="footer-copy">© 2025 Ghost of Yōtei Legends Community</p>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
-
 </body>
 </html>
