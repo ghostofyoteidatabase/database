@@ -1,18 +1,10 @@
-console.log("Ghost of Yōtei Database Loaded");
-
 function showPage(pageId) {
-  const pages = document.querySelectorAll('.page');
-  const buttons = document.querySelectorAll('.tab-button');
+
+  const pages = document.querySelectorAll(".page");
 
   pages.forEach(page => {
-    page.classList.remove('active-page');
+    page.classList.remove("active");
   });
 
-  buttons.forEach(button => {
-    button.classList.remove('active');
-  });
-
-  document.getElementById(pageId).classList.add('active-page');
-
-  event.target.classList.add('active');
+  document.getElementById(pageId).classList.add("active");
 }
