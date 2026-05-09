@@ -1308,8 +1308,143 @@ body {
 }
 
 /* ================================================
-   RESPONSIVE
+   CLASSES INFO PAGE
    ================================================ */
+.classinfo-hero { min-height: 280px; }
+.classinfo-hero .page-hero-content { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.classinfo-section { padding: 4rem 0 6rem; }
+
+.classinfo-card {
+  position: relative;
+  display: flex;
+  gap: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+  min-height: 300px;
+}
+.classinfo-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-glow);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px var(--glow);
+}
+
+/* Themed left deco panel */
+.classinfo-card-deco {
+  position: relative;
+  width: 110px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.classinfo-jp {
+  font-family: var(--font-jp);
+  font-size: 5.5rem;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  color: var(--off-white);
+  opacity: 0.07;
+  user-select: none;
+  transition: opacity var(--transition);
+  line-height: 1;
+}
+.classinfo-card:hover .classinfo-jp { opacity: 0.13; }
+
+.samurai-classinfo   .classinfo-card-deco { background: linear-gradient(180deg, #1a0505 0%, #0d0808 100%); border-right: 1px solid rgba(180,20,20,0.15); }
+.archer-classinfo    .classinfo-card-deco { background: linear-gradient(180deg, #050a1a 0%, #080812 100%); border-right: 1px solid rgba(20,60,180,0.15); }
+.mercenary-classinfo .classinfo-card-deco { background: linear-gradient(180deg, #1a1205 0%, #0d0b08 100%); border-right: 1px solid rgba(160,100,20,0.15); }
+.shinobi-classinfo   .classinfo-card-deco { background: linear-gradient(180deg, #0a0514 0%, #08080e 100%); border-right: 1px solid rgba(80,20,140,0.15); }
+
+/* Right glow accent per class */
+.samurai-classinfo::before   { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 40% 80% at 0% 50%, rgba(180,20,20,0.07) 0%, transparent 60%); pointer-events: none; }
+.archer-classinfo::before    { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 40% 80% at 0% 50%, rgba(20,60,200,0.07) 0%, transparent 60%); pointer-events: none; }
+.mercenary-classinfo::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 40% 80% at 0% 50%, rgba(160,100,20,0.07) 0%, transparent 60%); pointer-events: none; }
+.shinobi-classinfo::before   { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 40% 80% at 0% 50%, rgba(80,20,140,0.07) 0%, transparent 60%); pointer-events: none; }
+
+.classinfo-card-main {
+  flex: 1;
+  padding: 2.5rem 2.5rem 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.classinfo-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.classinfo-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.classinfo-icon { font-size: 2rem; line-height: 1; }
+.classinfo-name {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--off-white);
+  line-height: 1.1;
+}
+.classinfo-motto {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+.classinfo-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: flex-start; padding-top: 0.3rem; }
+
+.classinfo-desc {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(232,224,212,0.65);
+  line-height: 1.85;
+  max-width: 700px;
+  border-left: 2px solid rgba(255,255,255,0.06);
+  padding-left: 1.2rem;
+}
+
+.classinfo-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.classinfo-col-title {
+  font-family: var(--font-title);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .classinfo-card { flex-direction: column; }
+  .classinfo-card-deco { width: 100%; height: 80px; writing-mode: horizontal-tb; }
+  .classinfo-jp { writing-mode: horizontal-tb; font-size: 3.5rem; opacity: 0.1; }
+  .classinfo-details { grid-template-columns: 1fr; gap: 1rem; }
+  .classinfo-card-main { padding: 1.8rem; }
+}
+@media (max-width: 600px) {
+  .classinfo-header { flex-direction: column; }
+  .classinfo-card-main { padding: 1.25rem; }
+}
+
+
 @media (max-width: 900px) {
   .navbar { padding: 0 1.5rem; }
   .nav-links {
