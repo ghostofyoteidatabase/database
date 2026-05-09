@@ -1,50 +1,165 @@
 <!DOCTYPE html>
-            <li>Weapon: Odachi</li>
-            <li>Mode: Survival</li>
-            <li>Patch: 1.04</li>
-          </ul>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ghost of Yōtei Database</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Ghost of Yōtei Database</h1>
+
+    <nav>
+      <button onclick="showPage('home')">Home</button>
+      <button onclick="showPage('samurai')">Samurai</button>
+      <button onclick="showPage('archer')">Archer</button>
+      <button onclick="showPage('mercenary')">Mercenary</button>
+      <button onclick="showPage('shinobi')">Shinobi</button>
+      <button onclick="showPage('builds')">Builds</button>
+      <button onclick="showPage('fits')">Fits</button>
+      <button onclick="showPage('mechanics')">Mechanics</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="home" class="page active">
+      <h2>Community Made Database</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Samurai</h3>
+          <p>Tanky melee class.</p>
         </div>
 
-      </section>
+        <div class="card">
+          <h3>Archer</h3>
+          <p>High ranged damage.</p>
+        </div>
 
+        <div class="card">
+          <h3>Mercenary</h3>
+          <p>Support and utility.</p>
+        </div>
+
+        <div class="card">
+          <h3>Shinobi</h3>
+          <p>Mobility and burst damage.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="samurai" class="page">
+      <h2>Samurai</h2>
+      <div class="card">
+        <p>Samurai builds and guides.</p>
+      </div>
+    </section>
+
+    <section id="archer" class="page">
+      <h2>Archer</h2>
+      <div class="card">
+        <p>Archer builds and guides.</p>
+      </div>
+    </section>
+
+    <section id="mercenary" class="page">
+      <h2>Mercenary</h2>
+      <div class="card">
+        <p>Mercenary builds and guides.</p>
+      </div>
+    </section>
+
+    <section id="shinobi" class="page">
+      <h2>Shinobi</h2>
+      <div class="card">
+        <p>Shinobi builds and guides.</p>
+      </div>
+    </section>
+
+    <section id="builds" class="page">
+      <div class="top">
+        <h2>Community Made Builds</h2>
+
+        <button class="red-button">
+          + Contribute Build
+        </button>
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <span class="tag">Community Made</span>
+
+          <h3>Nightmare Shinobi Build</h3>
+
+          <p>Class: Shinobi</p>
+          <p>Weapon: Iaido Katana</p>
+          <p>Mode: Incursion</p>
+        </div>
+
+        <div class="card">
+          <span class="tag">Community Made</span>
+
+          <h3>Fire Samurai Build</h3>
+
+          <p>Class: Samurai</p>
+          <p>Weapon: Odachi</p>
+          <p>Mode: Survival</p>
+        </div>
+
+      </div>
     </section>
 
     <section id="fits" class="page">
-
-      <section class="section-title">
+      <div class="top">
         <h2>Create Fits</h2>
-        <button>+ Contribute Fit</button>
-      </section>
 
-      <section class="fits">
+        <button class="red-button">
+          + Contribute Fit
+        </button>
+      </div>
+
+      <div class="grid">
 
         <div class="card">
           <h3>Ronin Shadow Fit</h3>
-          <p>Dark armor setup with Oni mask and crimson wraps.</p>
+
+          <p>
+            Dark armor setup with Oni mask and crimson wraps.
+          </p>
         </div>
 
         <div class="card">
           <h3>White Wolf Samurai</h3>
-          <p>White armor with silver blade cosmetics.</p>
+
+          <p>
+            White armor with silver blade cosmetics.
+          </p>
         </div>
 
-      </section>
-
+      </div>
     </section>
 
     <section id="mechanics" class="page">
-
-      <section class="section-title">
+      <div class="top">
         <h2>Mechanics & Tech</h2>
-        <button>+ Contribute Mechanic</button>
-      </section>
 
-      <section class="mechanics">
+        <button class="red-button">
+          + Contribute Mechanic
+        </button>
+      </div>
 
-        <div class="mechanic-card">
+      <div class="grid">
+
+        <div class="card">
           <h3>Kurosignmare Sprint Cancel</h3>
 
-          <p><strong>Type:</strong> Movement Tech</p>
+          <p>Type: Movement Tech</p>
 
           <p>
             Sprint → Square → Circle spam
@@ -53,16 +168,14 @@
           <p>
             Maintains sprint momentum while animation canceling movement slowdown.
           </p>
-
-          <span class="placeholder">Placeholder / Community Discovery</span>
         </div>
 
-      </section>
-
+      </div>
     </section>
 
   </main>
 
   <script src="script.js"></script>
+
 </body>
 </html>
