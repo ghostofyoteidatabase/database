@@ -33,10 +33,7 @@
 
     <ul class="nav-links" id="nav-links">
       <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
-      <li><a href="#" class="nav-link" data-page="samurai">Samurai</a></li>
-      <li><a href="#" class="nav-link" data-page="archer">Archer</a></li>
-      <li><a href="#" class="nav-link" data-page="mercenary">Mercenary</a></li>
-      <li><a href="#" class="nav-link" data-page="shinobi">Shinobi</a></li>
+      <li><a href="#" class="nav-link" data-page="classinfo">Classes Info</a></li>
       <li><a href="#" class="nav-link" data-page="builds">Builds</a></li>
       <li><a href="#" class="nav-link" data-page="fits">Fits</a></li>
       <li><a href="#" class="nav-link" data-page="mechanics">Mechanics</a></li>
@@ -122,7 +119,7 @@
         <h2 class="section-title">The Four Ways<br/><em>of the Ghost</em></h2>
         <div class="class-grid">
 
-          <div class="class-card samurai-card" onclick="switchPage('samurai')">
+          <div class="class-card samurai-card" onclick="switchPage('classinfo')">
             <div class="class-card-bg"></div>
             <div class="class-card-glow"></div>
             <div class="class-card-content">
@@ -139,7 +136,7 @@
             </div>
           </div>
 
-          <div class="class-card archer-card" onclick="switchPage('archer')">
+          <div class="class-card archer-card" onclick="switchPage('classinfo')">
             <div class="class-card-bg"></div>
             <div class="class-card-glow"></div>
             <div class="class-card-content">
@@ -156,7 +153,7 @@
             </div>
           </div>
 
-          <div class="class-card mercenary-card" onclick="switchPage('mercenary')">
+          <div class="class-card mercenary-card" onclick="switchPage('classinfo')">
             <div class="class-card-bg"></div>
             <div class="class-card-glow"></div>
             <div class="class-card-content">
@@ -173,7 +170,7 @@
             </div>
           </div>
 
-          <div class="class-card shinobi-card" onclick="switchPage('shinobi')">
+          <div class="class-card shinobi-card" onclick="switchPage('classinfo')">
             <div class="class-card-bg"></div>
             <div class="class-card-glow"></div>
             <div class="class-card-content">
@@ -196,190 +193,227 @@
 
   </section>
 
-  <!-- ==================== SAMURAI PAGE ==================== -->
-  <section class="page" id="page-samurai">
-    <div class="page-hero class-page-hero samurai-hero">
+  <!-- ==================== CLASSES INFO PAGE ==================== -->
+  <section class="page" id="page-classinfo">
+    <div class="page-hero simple-hero classinfo-hero">
       <div class="page-hero-content">
-        <div class="class-jp-large">侍</div>
-        <h1 class="page-hero-title">Samurai</h1>
-        <p class="page-hero-desc">Honor. Discipline. Steel.</p>
+        <div class="section-badge">Choose Your Path</div>
+        <h1 class="page-hero-title">Classes Info</h1>
+        <p class="page-hero-desc">Four ways of the ghost. One legend.</p>
       </div>
     </div>
-    <div class="section">
-      <div class="section-inner">
-        <div class="info-grid">
-          <div class="info-card">
-            <h3 class="info-card-title">⚔ Playstyle</h3>
-            <p>The Samurai excels in direct, honorable combat. High defense values and devastating katana combos make this class ideal for players who prefer deliberate, powerful strikes over evasion.</p>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">🛡 Strengths</h3>
-            <ul class="info-list">
-              <li>Highest base armor rating</li>
-              <li>Access to exclusive Stance abilities</li>
-              <li>Devastating parry windows</li>
-              <li>Strong against armored enemies</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">⚠ Weaknesses</h3>
-            <ul class="info-list">
-              <li>Low mobility compared to Shinobi</li>
-              <li>Struggles against ranged swarms</li>
-              <li>Resource-heavy stance management</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">🗡 Core Techniques</h3>
-            <ul class="info-list">
-              <li>Iron Will — Unstoppable charge stance</li>
-              <li>Deflect Mastery — Perfect parry window</li>
-              <li>Honored Blade — Katana damage boost</li>
-              <li>Heaven's Descent — AOE katana slam</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ==================== ARCHER PAGE ==================== -->
-  <section class="page" id="page-archer">
-    <div class="page-hero class-page-hero archer-hero">
-      <div class="page-hero-content">
-        <div class="class-jp-large">弓</div>
-        <h1 class="page-hero-title">Archer</h1>
-        <p class="page-hero-desc">Patience. Precision. Silence.</p>
-      </div>
-    </div>
-    <div class="section">
+    <div class="section classinfo-section">
       <div class="section-inner">
-        <div class="info-grid">
-          <div class="info-card">
-            <h3 class="info-card-title">🏹 Playstyle</h3>
-            <p>The Archer controls engagements from afar, rewarding patience and positioning. High burst damage paired with stealth integration makes this class a nightmare for any enemy unlucky enough to be targeted.</p>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">🛡 Strengths</h3>
-            <ul class="info-list">
-              <li>Highest single-target damage</li>
-              <li>Exceptional stealth synergy</li>
-              <li>Explosive arrow variants</li>
-              <li>Long-range zone control</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">⚠ Weaknesses</h3>
-            <ul class="info-list">
-              <li>Vulnerable in close quarters</li>
-              <li>Limited ammo reserves</li>
-              <li>Needs high ground positioning</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">🗡 Core Techniques</h3>
-            <ul class="info-list">
-              <li>Eagle Eye — Extended aim duration</li>
-              <li>Breathless — Slows time on aim</li>
-              <li>Phantom Arrow — Silent shot</li>
-              <li>Volley — Multi-arrow scatter shot</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ==================== MERCENARY PAGE ==================== -->
-  <section class="page" id="page-mercenary">
-    <div class="page-hero class-page-hero mercenary-hero">
-      <div class="page-hero-content">
-        <div class="class-jp-large">傭兵</div>
-        <h1 class="page-hero-title">Mercenary</h1>
-        <p class="page-hero-desc">Adaptability. Chaos. Survival.</p>
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-inner">
-        <div class="info-grid">
-          <div class="info-card">
-            <h3 class="info-card-title">⚙ Playstyle</h3>
-            <p>The Mercenary is built for those who refuse to be boxed in. Explosive utility, hybrid weapon access, and raw aggression make this class the most versatile option for any scenario.</p>
+        <!-- SAMURAI -->
+        <div class="classinfo-card samurai-classinfo">
+          <div class="classinfo-card-deco">
+            <span class="classinfo-jp">侍</span>
           </div>
-          <div class="info-card">
-            <h3 class="info-card-title">🛡 Strengths</h3>
-            <ul class="info-list">
-              <li>Access to all weapon categories</li>
-              <li>Explosive and trap utility</li>
-              <li>High adaptability mid-fight</li>
-              <li>Best multi-target clearance</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">⚠ Weaknesses</h3>
-            <ul class="info-list">
-              <li>No class specialization bonus</li>
-              <li>Gear cost is highest</li>
-              <li>Stealth is limited</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">🗡 Core Techniques</h3>
-            <ul class="info-list">
-              <li>Iron Gambit — Risk/reward stance</li>
-              <li>Smoke Bomb — AoE blind</li>
-              <li>Grenadier — Explosive cooldown cut</li>
-              <li>Brutalize — Executions restore health</li>
-            </ul>
+          <div class="classinfo-card-main">
+            <div class="classinfo-header">
+              <div class="classinfo-title-group">
+                <span class="classinfo-icon">⚔</span>
+                <div>
+                  <h2 class="classinfo-name">Samurai</h2>
+                  <p class="classinfo-motto">Honor. Discipline. Steel.</p>
+                </div>
+              </div>
+              <div class="classinfo-tags">
+                <span class="tag">Melee</span>
+                <span class="tag">Armor</span>
+                <span class="tag">Stance</span>
+              </div>
+            </div>
+            <p class="classinfo-desc">The Samurai excels in direct, honorable combat. High defense values and devastating katana combos make this class ideal for players who prefer deliberate, powerful strikes over evasion. A warrior of iron resolve and unyielding code.</p>
+            <div class="classinfo-details">
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title buff">⬆ Strengths</h4>
+                <ul class="info-list">
+                  <li>Highest base armor rating</li>
+                  <li>Access to exclusive Stance abilities</li>
+                  <li>Devastating parry windows</li>
+                  <li>Strong against armored enemies</li>
+                </ul>
+              </div>
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title nerf">⬇ Weaknesses</h4>
+                <ul class="info-list">
+                  <li>Low mobility compared to Shinobi</li>
+                  <li>Struggles against ranged swarms</li>
+                  <li>Resource-heavy stance management</li>
+                </ul>
+              </div>
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title">🗡 Core Techniques</h4>
+                <ul class="info-list">
+                  <li>Iron Will — Unstoppable charge stance</li>
+                  <li>Deflect Mastery — Perfect parry window</li>
+                  <li>Honored Blade — Katana damage boost</li>
+                  <li>Heaven's Descent — AOE katana slam</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ==================== SHINOBI PAGE ==================== -->
-  <section class="page" id="page-shinobi">
-    <div class="page-hero class-page-hero shinobi-hero">
-      <div class="page-hero-content">
-        <div class="class-jp-large">忍</div>
-        <h1 class="page-hero-title">Shinobi</h1>
-        <p class="page-hero-desc">Shadow. Smoke. Death.</p>
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-inner">
-        <div class="info-grid">
-          <div class="info-card">
-            <h3 class="info-card-title">🌑 Playstyle</h3>
-            <p>The Shinobi is the most mechanically demanding class, rewarding aggressive positioning, speed, and precise timing. High kill potential offset by razor-thin survivability.</p>
+        <!-- ARCHER -->
+        <div class="classinfo-card archer-classinfo">
+          <div class="classinfo-card-deco">
+            <span class="classinfo-jp">弓</span>
           </div>
-          <div class="info-card">
-            <h3 class="info-card-title">🛡 Strengths</h3>
-            <ul class="info-list">
-              <li>Fastest base movement speed</li>
-              <li>Best assassination damage</li>
-              <li>Grapple and traversal tools</li>
-              <li>Stealth chain kills</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">⚠ Weaknesses</h3>
-            <ul class="info-list">
-              <li>Lowest base health pool</li>
-              <li>Punished heavily for exposure</li>
-              <li>High skill floor requirement</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <h3 class="info-card-title">🗡 Core Techniques</h3>
-            <ul class="info-list">
-              <li>Phantom Step — Instant repositioning</li>
-              <li>Death Blossom — Rapid dagger flurry</li>
-              <li>Vanish — Combat stealth reset</li>
-              <li>Kunai Storm — Ranged projectile burst</li>
-            </ul>
+          <div class="classinfo-card-main">
+            <div class="classinfo-header">
+              <div class="classinfo-title-group">
+                <span class="classinfo-icon">🏹</span>
+                <div>
+                  <h2 class="classinfo-name">Archer</h2>
+                  <p class="classinfo-motto">Patience. Precision. Silence.</p>
+                </div>
+              </div>
+              <div class="classinfo-tags">
+                <span class="tag">Ranged</span>
+                <span class="tag">Precision</span>
+                <span class="tag">Stealth</span>
+              </div>
+            </div>
+            <p class="classinfo-desc">Silent. Patient. Lethal. The Archer controls engagements from afar, rewarding patience and positioning. High burst damage paired with stealth integration makes this class a nightmare for any enemy unlucky enough to be targeted.</p>
+            <div class="classinfo-details">
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title buff">⬆ Strengths</h4>
+                <ul class="info-list">
+                  <li>Highest single-target damage</li>
+                  <li>Exceptional stealth synergy</li>
+                  <li>Explosive arrow variants</li>
+                  <li>Long-range zone control</li>
+                </ul>
+              </div>
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title nerf">⬇ Weaknesses</h4>
+                <ul class="info-list">
+                  <li>Vulnerable in close quarters</li>
+                  <li>Limited ammo reserves</li>
+                  <li>Needs high ground positioning</li>
+                </ul>
+              </div>
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title">🗡 Core Techniques</h4>
+                <ul class="info-list">
+                  <li>Eagle Eye — Extended aim duration</li>
+                  <li>Breathless — Slows time on aim</li>
+                  <li>Phantom Arrow — Silent shot</li>
+                  <li>Volley — Multi-arrow scatter shot</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- MERCENARY -->
+        <div class="classinfo-card mercenary-classinfo">
+          <div class="classinfo-card-deco">
+            <span class="classinfo-jp">傭兵</span>
+          </div>
+          <div class="classinfo-card-main">
+            <div class="classinfo-header">
+              <div class="classinfo-title-group">
+                <span class="classinfo-icon">⚙</span>
+                <div>
+                  <h2 class="classinfo-name">Mercenary</h2>
+                  <p class="classinfo-motto">Adaptability. Chaos. Survival.</p>
+                </div>
+              </div>
+              <div class="classinfo-tags">
+                <span class="tag">Hybrid</span>
+                <span class="tag">Explosives</span>
+                <span class="tag">Versatile</span>
+              </div>
+            </div>
+            <p class="classinfo-desc">Ruthless adaptability. The Mercenary is built for those who refuse to be boxed in. Explosive utility, hybrid weapon access, and raw aggression make this class the most versatile option for any scenario or battlefield.</p>
+            <div class="classinfo-details">
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title buff">⬆ Strengths</h4>
+                <ul class="info-list">
+                  <li>Access to all weapon categories</li>
+                  <li>Explosive and trap utility</li>
+                  <li>High adaptability mid-fight</li>
+                  <li>Best multi-target clearance</li>
+                </ul>
+              </div>
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title nerf">⬇ Weaknesses</h4>
+                <ul class="info-list">
+                  <li>No class specialization bonus</li>
+                  <li>Gear cost is highest</li>
+                  <li>Stealth is limited</li>
+                </ul>
+              </div>
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title">🗡 Core Techniques</h4>
+                <ul class="info-list">
+                  <li>Iron Gambit — Risk/reward stance</li>
+                  <li>Smoke Bomb — AoE blind</li>
+                  <li>Grenadier — Explosive cooldown cut</li>
+                  <li>Brutalize — Executions restore health</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHINOBI -->
+        <div class="classinfo-card shinobi-classinfo">
+          <div class="classinfo-card-deco">
+            <span class="classinfo-jp">忍</span>
+          </div>
+          <div class="classinfo-card-main">
+            <div class="classinfo-header">
+              <div class="classinfo-title-group">
+                <span class="classinfo-icon">🌑</span>
+                <div>
+                  <h2 class="classinfo-name">Shinobi</h2>
+                  <p class="classinfo-motto">Shadow. Smoke. Death.</p>
+                </div>
+              </div>
+              <div class="classinfo-tags">
+                <span class="tag">Stealth</span>
+                <span class="tag">Mobility</span>
+                <span class="tag">Assassination</span>
+              </div>
+            </div>
+            <p class="classinfo-desc">Become the darkness. The Shinobi is the most mechanically demanding class — ghost given form. Smoke, silence, and death flow through shadows unseen. High kill potential offset by razor-thin survivability demands mastery.</p>
+            <div class="classinfo-details">
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title buff">⬆ Strengths</h4>
+                <ul class="info-list">
+                  <li>Fastest base movement speed</li>
+                  <li>Best assassination damage</li>
+                  <li>Grapple and traversal tools</li>
+                  <li>Stealth chain kills</li>
+                </ul>
+              </div>
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title nerf">⬇ Weaknesses</h4>
+                <ul class="info-list">
+                  <li>Lowest base health pool</li>
+                  <li>Punished heavily for exposure</li>
+                  <li>High skill floor requirement</li>
+                </ul>
+              </div>
+              <div class="classinfo-col">
+                <h4 class="classinfo-col-title">🗡 Core Techniques</h4>
+                <ul class="info-list">
+                  <li>Phantom Step — Instant repositioning</li>
+                  <li>Death Blossom — Rapid dagger flurry</li>
+                  <li>Vanish — Combat stealth reset</li>
+                  <li>Kunai Storm — Ranged projectile burst</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
