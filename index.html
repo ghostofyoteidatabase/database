@@ -1,2746 +1,597 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GameRoute Archive | Ghost of Yōtei Legends</title>
-<meta name="description" content="The ultimate database for Ghost of Yōtei Legends — missions, builds, XP systems, lore, enemies, bosses and more.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
-<style>
-/* ===== RESET & VARIABLES ===== */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --ink: #0a0a0f;
-  --ink-2: #111118;
-  --ink-3: #18181f;
-  --ink-4: #1f1f2a;
-  --surface: #242430;
-  --surface-2: #2c2c3a;
-  --border: rgba(255,255,255,0.07);
-  --border-bright: rgba(255,255,255,0.14);
-  --gold: #c8963e;
-  --gold-light: #e8b86d;
-  --gold-dim: rgba(200,150,62,0.15);
-  --silver: #8a9bb0;
-  --silver-light: #b8c8d8;
-  --red: #c0392b;
-  --red-glow: rgba(192,57,43,0.3);
-  --jade: #3a7d6f;
-  --jade-light: #5ab89f;
-  --platinum: #d4e8f0;
-  --bronze: #cd7f32;
-  --text-1: #f0ede8;
-  --text-2: #b8b4ae;
-  --text-3: #7a7670;
-  --font-display: 'Noto Serif JP', serif;
-  --font-ui: 'Rajdhani', sans-serif;
-  --font-body: 'Crimson Pro', serif;
-  --nav-h: 64px;
-  --sidebar-w: 260px;
-  --r: 6px;
-  --r-lg: 12px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.6);
-  --shadow-gold: 0 0 30px rgba(200,150,62,0.2);
-}
-html { scroll-behavior: smooth; }
-body {
-  background: var(--ink);
-  color: var(--text-1);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.7;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-::selection { background: var(--gold-dim); color: var(--gold-light); }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameRoute Archive</title>
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--ink-2); }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-/* ===== NOISE TEXTURE ===== */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.4;
-}
+  <style>
 
-/* ===== NAVIGATION ===== */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: var(--nav-h);
-  background: rgba(10,10,15,0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  gap: 0;
-}
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-.nav-logo-icon {
-  width: 36px; height: 36px;
-  background: linear-gradient(135deg, var(--gold), var(--bronze));
-  border-radius: 4px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  box-shadow: 0 0 20px rgba(200,150,62,0.4);
-}
-.nav-logo-text {
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-1);
-  letter-spacing: 0.05em;
-  line-height: 1.2;
-}
-.nav-logo-text span {
-  display: block;
-  font-size: 9px;
-  color: var(--gold);
-  letter-spacing: 0.2em;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-.nav-divider {
-  width: 1px; height: 28px;
-  background: var(--border-bright);
-  margin: 0 20px;
-}
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  list-style: none;
-  flex: 1;
-}
-.nav-links a {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-2);
-  text-decoration: none;
-  padding: 6px 12px;
-  border-radius: var(--r);
-  transition: color 0.2s, background 0.2s;
-}
-.nav-links a:hover, .nav-links a.active {
-  color: var(--gold-light);
-  background: var(--gold-dim);
-}
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-left: auto;
-}
-.nav-search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--ink-3);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-.nav-search:hover { border-color: var(--gold); }
-.nav-search input {
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--text-2);
-  font-family: var(--font-ui);
-  font-size: 13px;
-  width: 160px;
-}
-.nav-search input::placeholder { color: var(--text-3); }
-.btn {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 7px 16px;
-  border-radius: var(--r);
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.btn-ghost {
-  background: none;
-  border: 1px solid var(--border-bright);
-  color: var(--text-2);
-}
-.btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
-.btn-gold {
-  background: linear-gradient(135deg, var(--gold), var(--bronze));
-  color: #0a0a0f;
-  box-shadow: 0 0 20px rgba(200,150,62,0.3);
-}
-.btn-gold:hover { box-shadow: 0 0 30px rgba(200,150,62,0.5); transform: translateY(-1px); }
-.btn-discord {
-  background: #5865f2;
-  color: #fff;
-}
-.btn-discord:hover { background: #4752c4; transform: translateY(-1px); }
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-}
-.hamburger span {
-  width: 22px; height: 2px;
-  background: var(--text-2);
-  border-radius: 1px;
-  transition: all 0.3s;
-}
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
 
-/* ===== HERO ===== */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding-top: var(--nav-h);
-}
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200,150,62,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(58,125,111,0.06) 0%, transparent 50%),
-    linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
-}
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
-}
-.hero-kanji {
-  position: absolute;
-  right: -30px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--font-display);
-  font-size: clamp(160px, 20vw, 340px);
-  font-weight: 700;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(200,150,62,0.08);
-  writing-mode: vertical-rl;
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  letter-spacing: 0.1em;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 80px 40px;
-  width: 100%;
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--gold-dim);
-  border: 1px solid rgba(200,150,62,0.3);
-  border-radius: 20px;
-  padding: 4px 14px;
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold-light);
-  margin-bottom: 24px;
-  animation: fadeUp 0.6s ease both;
-}
-.hero-badge::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 8px var(--gold);
-  animation: pulse 2s ease infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.85); }
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 6vw, 80px);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-  animation: fadeUp 0.6s 0.1s ease both;
-}
-.hero h1 em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--bronze));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero-sub {
-  font-family: var(--font-display);
-  font-size: clamp(16px, 2vw, 22px);
-  color: var(--text-2);
-  font-weight: 300;
-  letter-spacing: 0.15em;
-  margin-bottom: 20px;
-  animation: fadeUp 0.6s 0.15s ease both;
-}
-.hero-desc {
-  font-size: 17px;
-  color: var(--text-2);
-  max-width: 560px;
-  margin-bottom: 36px;
-  line-height: 1.8;
-  animation: fadeUp 0.6s 0.2s ease both;
-}
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  animation: fadeUp 0.6s 0.25s ease both;
-}
-.hero-stats {
-  display: flex;
-  gap: 40px;
-  margin-top: 64px;
-  padding-top: 40px;
-  border-top: 1px solid var(--border);
-  animation: fadeUp 0.6s 0.35s ease both;
-}
-.hero-stat-val {
-  font-family: var(--font-ui);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--gold-light);
-  display: block;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.hero-stat-lbl {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-.hero-game-tag {
-  position: absolute;
-  top: calc(var(--nav-h) + 24px);
-  right: 40px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  animation: fadeUp 0.6s 0.4s ease both;
-}
-.game-tag-inner {
-  text-align: right;
-}
-.game-tag-title {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-}
-.game-tag-name {
-  font-family: var(--font-display);
-  font-size: 13px;
-  color: var(--gold-light);
-  font-weight: 600;
-}
+    body{
+      font-family:'Inter',sans-serif;
+      background:#06070a;
+      color:white;
+      overflow-x:hidden;
+    }
 
-/* ===== LAYOUT ===== */
-.page-layout {
-  display: flex;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 24px;
-  gap: 32px;
-  padding-top: 40px;
-  padding-bottom: 80px;
-}
-.sidebar {
-  width: var(--sidebar-w);
-  flex-shrink: 0;
-  position: sticky;
-  top: calc(var(--nav-h) + 20px);
-  height: fit-content;
-  align-self: flex-start;
-}
-.sidebar-section {
-  margin-bottom: 8px;
-}
-.sidebar-label {
-  font-family: var(--font-ui);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  padding: 12px 12px 6px;
-}
-.sidebar-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border-radius: var(--r);
-  color: var(--text-2);
-  text-decoration: none;
-  font-family: var(--font-ui);
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.15s;
-  cursor: pointer;
-}
-.sidebar-link:hover {
-  background: var(--ink-3);
-  color: var(--text-1);
-}
-.sidebar-link.active {
-  background: var(--gold-dim);
-  color: var(--gold-light);
-  border-left: 2px solid var(--gold);
-}
-.sidebar-link .icon { font-size: 15px; width: 18px; text-align: center; }
-.sidebar-link .badge {
-  margin-left: auto;
-  font-size: 10px;
-  font-weight: 700;
-  background: var(--ink-4);
-  color: var(--text-3);
-  padding: 1px 6px;
-  border-radius: 10px;
-}
-.main-content { flex: 1; min-width: 0; }
+    body::before{
+      content:'';
+      position:fixed;
+      width:100%;
+      height:100%;
+      background:
+      radial-gradient(circle at top left,#7a1c1c33,transparent 30%),
+      radial-gradient(circle at bottom right,#111827,transparent 40%);
+      z-index:-1;
+    }
 
-/* ===== SECTION HEADERS ===== */
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-}
-.section-header-line {
-  width: 3px;
-  height: 28px;
-  background: linear-gradient(180deg, var(--gold), var(--bronze));
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-.section-title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--text-1);
-  letter-spacing: -0.01em;
-}
-.section-title span {
-  font-size: 13px;
-  font-family: var(--font-ui);
-  color: var(--text-3);
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-left: 8px;
-}
-.section-actions { margin-left: auto; }
+    a{
+      text-decoration:none;
+      color:white;
+    }
 
-/* ===== GAME HEADER BANNER ===== */
-.game-banner {
-  position: relative;
-  background: var(--ink-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  margin-bottom: 40px;
-  padding: 40px;
-}
-.game-banner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 80% at 100% 50%, rgba(200,150,62,0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 0% 50%, rgba(58,125,111,0.08) 0%, transparent 50%);
-}
-.game-banner-kanji {
-  position: absolute;
-  right: 32px; top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--font-display);
-  font-size: 120px;
-  font-weight: 700;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(200,150,62,0.12);
-  writing-mode: vertical-rl;
-  line-height: 1;
-  letter-spacing: 0.05em;
-  user-select: none;
-}
-.game-banner-inner {
-  position: relative;
-  z-index: 2;
-}
-.game-banner-top {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-.game-cover {
-  width: 90px; height: 120px;
-  background: linear-gradient(135deg, var(--ink-4) 0%, var(--surface) 100%);
-  border-radius: 8px;
-  border: 1px solid var(--border-bright);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  flex-shrink: 0;
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
-}
-.game-cover::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(200,150,62,0.1) 0%, transparent 50%);
-}
-.game-banner-meta { flex: 1; }
-.game-title-main {
-  font-family: var(--font-display);
-  font-size: clamp(22px, 3vw, 32px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: 4px;
-}
-.game-title-main em {
-  font-style: normal;
-  color: var(--gold-light);
-}
-.game-title-sub {
-  font-family: var(--font-display);
-  font-size: 14px;
-  color: var(--text-3);
-  font-weight: 300;
-  letter-spacing: 0.15em;
-  margin-bottom: 14px;
-}
-.game-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-}
-.tag {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 4px;
-  border: 1px solid;
-}
-.tag-action { color: #e07b54; border-color: rgba(224,123,84,0.3); background: rgba(224,123,84,0.08); }
-.tag-multiplayer { color: var(--jade-light); border-color: rgba(90,184,159,0.3); background: rgba(90,184,159,0.08); }
-.tag-ps5 { color: var(--silver-light); border-color: rgba(184,200,216,0.3); background: rgba(184,200,216,0.08); }
-.tag-new { color: var(--gold-light); border-color: rgba(200,150,62,0.3); background: var(--gold-dim); }
-.game-banner-footer {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-.game-meta-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.game-meta-label {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-.game-meta-value {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--text-1);
-  font-weight: 600;
-}
+    .navbar{
+      width:100%;
+      padding:24px 7%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:fixed;
+      top:0;
+      backdrop-filter:blur(18px);
+      background:rgba(5,5,8,.65);
+      border-bottom:1px solid rgba(255,255,255,.05);
+      z-index:1000;
+    }
 
-/* ===== MISSION CARDS ===== */
-.mission-grid {
-  display: grid;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-.mission-card {
-  background: var(--ink-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.3s;
-  position: relative;
-}
-.mission-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, var(--gold), var(--bronze));
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.mission-card:hover {
-  border-color: rgba(200,150,62,0.3);
-  transform: translateX(4px);
-  box-shadow: -4px 0 20px rgba(200,150,62,0.1);
-}
-.mission-card:hover::before { opacity: 1; }
-.mission-card.expanded { border-color: rgba(200,150,62,0.4); }
-.mission-card.expanded::before { opacity: 1; }
-.mission-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 24px;
-}
-.mission-num {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-  background: var(--gold-dim);
-  border: 1px solid rgba(200,150,62,0.2);
-  padding: 3px 10px;
-  border-radius: 4px;
-  flex-shrink: 0;
-}
-.mission-num.incursion {
-  color: var(--jade-light);
-  background: rgba(90,184,159,0.08);
-  border-color: rgba(90,184,159,0.2);
-}
-.mission-title {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text-1);
-  flex: 1;
-  letter-spacing: -0.01em;
-}
-.mission-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--text-3);
-}
-.mission-chevron {
-  color: var(--text-3);
-  transition: transform 0.3s;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-.mission-card.expanded .mission-chevron { transform: rotate(180deg); color: var(--gold); }
-.mission-body {
-  display: none;
-  padding: 0 24px 24px;
-  border-top: 1px solid var(--border);
-}
-.mission-card.expanded .mission-body { display: block; }
-.mission-lore {
-  font-size: 15px;
-  color: var(--text-2);
-  line-height: 1.8;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  font-style: italic;
-  padding-left: 16px;
-  border-left: 2px solid var(--gold-dim);
-}
-.mission-details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
-  margin-bottom: 20px;
-}
-.mission-detail-item {
-  background: var(--ink-3);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 12px 14px;
-}
-.mission-detail-label {
-  font-family: var(--font-ui);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-3);
-  margin-bottom: 4px;
-}
-.mission-detail-value {
-  font-family: var(--font-ui);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-1);
-}
+    .logo{
+      font-size:1.5rem;
+      font-weight:800;
+      letter-spacing:.5px;
+    }
 
-/* ===== DIFFICULTY TIERS ===== */
-.diff-section { margin-bottom: 40px; }
-.diff-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
-}
-@media (max-width: 900px) {
-  .diff-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 500px) {
-  .diff-grid { grid-template-columns: 1fr; }
-}
-.diff-card {
-  border-radius: var(--r-lg);
-  padding: 20px;
-  border: 1px solid;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.diff-card:hover { transform: translateY(-3px); }
-.diff-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-}
-.diff-card.bronze {
-  background: rgba(205,127,50,0.06);
-  border-color: rgba(205,127,50,0.3);
-}
-.diff-card.bronze::before { background: linear-gradient(90deg, var(--bronze), transparent); }
-.diff-card.bronze:hover { box-shadow: 0 8px 30px rgba(205,127,50,0.15); }
-.diff-card.silver {
-  background: rgba(138,155,176,0.06);
-  border-color: rgba(138,155,176,0.3);
-}
-.diff-card.silver::before { background: linear-gradient(90deg, var(--silver), transparent); }
-.diff-card.silver:hover { box-shadow: 0 8px 30px rgba(138,155,176,0.15); }
-.diff-card.gold {
-  background: rgba(200,150,62,0.07);
-  border-color: rgba(200,150,62,0.35);
-}
-.diff-card.gold::before { background: linear-gradient(90deg, var(--gold), transparent); }
-.diff-card.gold:hover { box-shadow: 0 8px 30px rgba(200,150,62,0.2); }
-.diff-card.platinum {
-  background: rgba(212,232,240,0.05);
-  border-color: rgba(212,232,240,0.25);
-}
-.diff-card.platinum::before { background: linear-gradient(90deg, var(--platinum), transparent); }
-.diff-card.platinum:hover { box-shadow: 0 8px 30px rgba(212,232,240,0.1); }
-.diff-tier-name {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.diff-card.bronze .diff-tier-name { color: var(--bronze); }
-.diff-card.silver .diff-tier-name { color: var(--silver-light); }
-.diff-card.gold .diff-tier-name { color: var(--gold-light); }
-.diff-card.platinum .diff-tier-name { color: var(--platinum); }
-.diff-xp {
-  font-family: var(--font-ui);
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 4px;
-  line-height: 1;
-}
-.diff-card.bronze .diff-xp { color: var(--bronze); }
-.diff-card.silver .diff-xp { color: var(--silver-light); }
-.diff-card.gold .diff-xp { color: var(--gold-light); }
-.diff-card.platinum .diff-xp { color: var(--platinum); }
-.diff-xp-label {
-  font-family: var(--font-ui);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-3);
-  margin-bottom: 16px;
-}
-.diff-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.diff-features li {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--text-2);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.diff-features li::before {
-  content: '◆';
-  font-size: 6px;
-  flex-shrink: 0;
-}
-.diff-card.bronze .diff-features li::before { color: var(--bronze); }
-.diff-card.silver .diff-features li::before { color: var(--silver); }
-.diff-card.gold .diff-features li::before { color: var(--gold); }
-.diff-card.platinum .diff-features li::before { color: var(--platinum); }
-.diff-multiplier {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-.mult-badge {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-.diff-card.bronze .mult-badge { background: rgba(205,127,50,0.2); color: var(--bronze); }
-.diff-card.silver .mult-badge { background: rgba(138,155,176,0.2); color: var(--silver-light); }
-.diff-card.gold .mult-badge { background: rgba(200,150,62,0.2); color: var(--gold-light); }
-.diff-card.platinum .mult-badge { background: rgba(212,232,240,0.15); color: var(--platinum); }
-.mult-label {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--text-3);
-}
+    .logo span{
+      color:#dc2626;
+    }
 
-/* ===== XP CHART ===== */
-.xp-chart-section { margin-bottom: 40px; }
-.xp-chart {
-  background: var(--ink-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 28px;
-}
-.xp-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 20px;
-  height: 160px;
-  margin-bottom: 12px;
-  padding-bottom: 1px;
-  border-bottom: 1px solid var(--border);
-}
-.xp-bar-wrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  height: 100%;
-  gap: 6px;
-}
-.xp-bar-val {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 700;
-  transition: transform 0.3s;
-}
-.xp-bar {
-  width: 100%;
-  border-radius: 4px 4px 0 0;
-  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-.xp-bar::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 50%);
-}
-.xp-bar.b { background: linear-gradient(180deg, #cd7f32, #8b5e2a); }
-.xp-bar.s { background: linear-gradient(180deg, #8a9bb0, #5a6878); }
-.xp-bar.g { background: linear-gradient(180deg, #c8963e, #8a6520); }
-.xp-bar.p { background: linear-gradient(180deg, #d4e8f0, #8a9faa); }
-.xp-bar-wrap .xp-bar.b { height: 33%; }
-.xp-bar-wrap .xp-bar.s { height: 50%; }
-.xp-bar-wrap .xp-bar.g { height: 67%; }
-.xp-bar-wrap .xp-bar.p { height: 100%; }
-.xp-bar-label {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-3);
-  padding-top: 8px;
-}
-.xp-bar-wrap.b .xp-bar-val { color: var(--bronze); }
-.xp-bar-wrap.s .xp-bar-val { color: var(--silver-light); }
-.xp-bar-wrap.g .xp-bar-val { color: var(--gold-light); }
-.xp-bar-wrap.p .xp-bar-val { color: var(--platinum); }
+    .nav-links{
+      display:flex;
+      gap:32px;
+      align-items:center;
+    }
 
-/* ===== ONRYO TOKENS ===== */
-.onryo-section { margin-bottom: 40px; }
-.onryo-card {
-  background: var(--ink-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 28px;
-  display: flex;
-  gap: 28px;
-  align-items: flex-start;
-}
-.onryo-icon-wrap {
-  flex-shrink: 0;
-  width: 72px; height: 72px;
-  background: rgba(192,57,43,0.1);
-  border: 1px solid rgba(192,57,43,0.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  box-shadow: 0 0 30px rgba(192,57,43,0.2);
-}
-.onryo-info { flex: 1; }
-.onryo-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--text-1);
-}
-.onryo-desc {
-  font-size: 15px;
-  color: var(--text-2);
-  line-height: 1.75;
-  margin-bottom: 16px;
-}
-.onryo-tokens-visual {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-.onryo-token {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(192,57,43,0.1);
-  border: 1px solid rgba(192,57,43,0.2);
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: #e07878;
-  font-weight: 600;
-}
-.onryo-token span { font-size: 14px; }
-.onryo-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--font-ui);
-  font-size: 13px;
-  margin-top: 16px;
-}
-.onryo-table th {
-  padding: 8px 12px;
-  text-align: left;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-3);
-  border-bottom: 1px solid var(--border);
-}
-.onryo-table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text-2);
-}
-.onryo-table tr:last-child td { border-bottom: none; }
-.onryo-table td:first-child { font-weight: 700; }
+    .nav-links a{
+      color:#d1d5db;
+      transition:.3s;
+      font-weight:500;
+    }
 
-/* ===== ENEMY/BOSS DATABASE ===== */
-.enemy-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-  margin-bottom: 40px;
-}
-.enemy-card {
-  background: var(--ink-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  transition: all 0.25s;
-  cursor: pointer;
-}
-.enemy-card:hover {
-  border-color: rgba(200,150,62,0.3);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-}
-.enemy-thumb {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  position: relative;
-  overflow: hidden;
-}
-.enemy-card.boss .enemy-thumb {
-  background: linear-gradient(135deg, rgba(192,57,43,0.15) 0%, rgba(192,57,43,0.05) 100%);
-  border-bottom: 1px solid rgba(192,57,43,0.2);
-}
-.enemy-card.regular .enemy-thumb {
-  background: linear-gradient(135deg, rgba(200,150,62,0.08) 0%, transparent 100%);
-  border-bottom: 1px solid var(--border);
-}
-.enemy-badge {
-  position: absolute;
-  top: 8px; right: 8px;
-  font-family: var(--font-ui);
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 2px 7px;
-  border-radius: 4px;
-}
-.boss-badge { background: rgba(192,57,43,0.3); color: #e07878; border: 1px solid rgba(192,57,43,0.3); }
-.regular-badge { background: rgba(200,150,62,0.15); color: var(--gold); border: 1px solid rgba(200,150,62,0.2); }
-.enemy-info { padding: 16px; }
-.enemy-name {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: var(--text-1);
-}
-.enemy-type {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 10px;
-}
-.enemy-tags { display: flex; gap: 4px; flex-wrap: wrap; }
-.enemy-tag {
-  font-family: var(--font-ui);
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: 3px;
-  background: var(--ink-4);
-  color: var(--text-3);
-  border: 1px solid var(--border);
-}
+    .nav-links a:hover{
+      color:white;
+    }
 
-/* ===== CLASS/BUILD SECTION ===== */
-.class-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 14px;
-  margin-bottom: 40px;
-}
-.class-card {
-  background: var(--ink-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 20px;
-  text-align: center;
-  transition: all 0.2s;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.class-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.class-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-}
-.class-card:hover::after { opacity: 1; }
-.class-card.samurai::after { background: linear-gradient(90deg, var(--gold), transparent); }
-.class-card.ronin::after { background: linear-gradient(90deg, var(--red), transparent); }
-.class-card.shinobi::after { background: linear-gradient(90deg, var(--jade-light), transparent); }
-.class-card.hunter::after { background: linear-gradient(90deg, var(--silver-light), transparent); }
-.class-card:hover { border-color: rgba(200,150,62,0.2); }
-.class-icon {
-  font-size: 36px;
-  margin-bottom: 12px;
-  display: block;
-}
-.class-name {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text-1);
-  margin-bottom: 6px;
-}
-.class-desc {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--text-3);
-  line-height: 1.5;
-}
+    .discord-btn{
+      padding:12px 20px;
+      background:#dc2626;
+      border-radius:12px;
+      font-weight:600;
+      transition:.3s;
+    }
 
-/* ===== PROGRESS TRACKER ===== */
-.tracker-section { margin-bottom: 40px; }
-.tracker-card {
-  background: var(--ink-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-}
-.tracker-header {
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.tracker-title {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text-1);
-}
-.tracker-progress-bar {
-  height: 4px;
-  background: var(--ink-4);
-  border-radius: 2px;
-  margin: 0 24px 0;
-  margin-top: 16px;
-  overflow: hidden;
-}
-.tracker-progress-fill {
-  height: 100%;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--gold), var(--jade-light));
-  width: 25%;
-  transition: width 0.5s ease;
-}
-.tracker-stat {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--text-3);
-  padding: 8px 24px 16px;
-}
-.checklist {
-  padding: 8px 0;
-}
-.checklist-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 24px;
-  cursor: pointer;
-  transition: background 0.15s;
-  border-bottom: 1px solid var(--border);
-}
-.checklist-item:last-child { border-bottom: none; }
-.checklist-item:hover { background: rgba(255,255,255,0.02); }
-.checklist-check {
-  width: 18px; height: 18px;
-  border-radius: 4px;
-  border: 2px solid var(--border-bright);
-  flex-shrink: 0;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-}
-.checklist-item.done .checklist-check {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--ink);
-}
-.checklist-label {
-  font-family: var(--font-ui);
-  font-size: 14px;
-  color: var(--text-2);
-  transition: color 0.2s;
-  flex: 1;
-}
-.checklist-item.done .checklist-label {
-  color: var(--text-3);
-  text-decoration: line-through;
-}
-.checklist-xp {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--gold);
-  font-weight: 600;
-}
+    .discord-btn:hover{
+      background:#ef4444;
+      transform:translateY(-2px);
+    }
 
-/* ===== INFO CARDS ===== */
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-  margin-bottom: 40px;
-}
-.info-card {
-  background: var(--ink-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 24px;
-  transition: border-color 0.2s;
-}
-.info-card:hover { border-color: rgba(200,150,62,0.25); }
-.info-card-icon {
-  font-size: 28px;
-  margin-bottom: 14px;
-  display: block;
-}
-.info-card-title {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-1);
-  margin-bottom: 8px;
-}
-.info-card-text {
-  font-size: 14px;
-  color: var(--text-2);
-  line-height: 1.7;
-}
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:140px 7% 80px;
+      gap:80px;
+    }
 
-/* ===== LORE SECTION ===== */
-.lore-section { margin-bottom: 40px; }
-.lore-card {
-  background: var(--ink-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 32px;
-  position: relative;
-  overflow: hidden;
-}
-.lore-card::before {
-  content: '「';
-  position: absolute;
-  top: -10px; left: 16px;
-  font-family: var(--font-display);
-  font-size: 120px;
-  color: rgba(200,150,62,0.06);
-  font-weight: 700;
-  line-height: 1;
-  pointer-events: none;
-}
-.lore-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--gold-light);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.lore-text {
-  font-size: 16px;
-  color: var(--text-2);
-  line-height: 1.9;
-  font-style: italic;
-}
-.lore-attribution {
-  margin-top: 20px;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
+    .hero-text{
+      max-width:650px;
+    }
 
-/* ===== COMMUNITY SECTION ===== */
-.community-section { margin-bottom: 40px; }
-.community-card {
-  background: linear-gradient(135deg, rgba(88,101,242,0.1) 0%, rgba(88,101,242,0.03) 100%);
-  border: 1px solid rgba(88,101,242,0.25);
-  border-radius: var(--r-lg);
-  padding: 32px;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  flex-wrap: wrap;
-}
-.discord-icon {
-  width: 64px; height: 64px;
-  background: #5865f2;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  flex-shrink: 0;
-  box-shadow: 0 0 30px rgba(88,101,242,0.4);
-}
-.community-info { flex: 1; min-width: 200px; }
-.community-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--text-1);
-  margin-bottom: 6px;
-}
-.community-desc {
-  font-size: 14px;
-  color: var(--text-2);
-  line-height: 1.6;
-}
+    .hero-text h1{
+      font-size:4.8rem;
+      line-height:1;
+      margin-bottom:24px;
+      font-weight:800;
+    }
 
-/* ===== SEARCH OVERLAY ===== */
-.search-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(8px);
-  z-index: 2000;
-  display: none;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 100px;
-}
-.search-overlay.open { display: flex; }
-.search-modal {
-  background: var(--ink-2);
-  border: 1px solid var(--border-bright);
-  border-radius: var(--r-lg);
-  width: 100%;
-  max-width: 600px;
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.8);
-  animation: slideDown 0.2s ease;
-}
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.search-modal-input {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border);
-}
-.search-modal-input span { font-size: 20px; color: var(--gold); }
-.search-modal-input input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  font-family: var(--font-ui);
-  font-size: 18px;
-  color: var(--text-1);
-}
-.search-modal-input input::placeholder { color: var(--text-3); }
-.search-results {
-  max-height: 360px;
-  overflow-y: auto;
-  padding: 12px;
-}
-.search-result {
-  padding: 12px;
-  border-radius: var(--r);
-  cursor: pointer;
-  transition: background 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.search-result:hover { background: var(--ink-3); }
-.search-result-icon { font-size: 20px; width: 28px; text-align: center; }
-.search-result-info {}
-.search-result-title {
-  font-family: var(--font-ui);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-1);
-}
-.search-result-type {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-.search-hint {
-  padding: 12px 24px;
-  border-top: 1px solid var(--border);
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--text-3);
-  display: flex;
-  gap: 16px;
-}
-.search-hint kbd {
-  background: var(--ink-4);
-  border: 1px solid var(--border-bright);
-  border-radius: 3px;
-  padding: 1px 5px;
-  font-family: var(--font-ui);
-  font-size: 10px;
-  color: var(--text-2);
-}
+    .hero-text h1 span{
+      color:#dc2626;
+    }
 
-/* ===== FOOTER ===== */
-footer {
-  background: var(--ink-2);
-  border-top: 1px solid var(--border);
-  padding: 48px 40px 32px;
-  position: relative;
-}
-footer::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-}
-.footer-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px;
-}
-.footer-brand-name {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--text-1);
-}
-.footer-brand-name em {
-  font-style: normal;
-  color: var(--gold-light);
-}
-.footer-brand-desc {
-  font-size: 14px;
-  color: var(--text-3);
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-.footer-contact {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--text-3);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.footer-contact a {
-  color: var(--gold);
-  text-decoration: none;
-}
-.footer-contact a:hover { color: var(--gold-light); }
-.footer-col-title {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text-3);
-  margin-bottom: 14px;
-}
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.footer-links a {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--text-2);
-  text-decoration: none;
-  transition: color 0.2s;
-  cursor: pointer;
-}
-.footer-links a:hover { color: var(--gold-light); }
-.footer-bottom {
-  max-width: 1400px;
-  margin: 32px auto 0;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--text-3);
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.footer-bottom a { color: var(--text-3); text-decoration: none; }
-.footer-bottom a:hover { color: var(--gold); }
+    .hero-text p{
+      color:#9ca3af;
+      font-size:1.1rem;
+      line-height:1.8;
+      margin-bottom:40px;
+    }
 
-/* ===== MOBILE NAV ===== */
-.mobile-nav {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(10,10,15,0.98);
-  backdrop-filter: blur(20px);
-  z-index: 999;
-  padding: calc(var(--nav-h) + 24px) 24px 24px;
-  flex-direction: column;
-  gap: 8px;
-  overflow-y: auto;
-}
-.mobile-nav.open { display: flex; }
-.mobile-nav a {
-  font-family: var(--font-ui);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-2);
-  text-decoration: none;
-  padding: 14px 16px;
-  border-radius: var(--r);
-  letter-spacing: 0.05em;
-  transition: all 0.15s;
-}
-.mobile-nav a:hover { color: var(--gold-light); background: var(--gold-dim); }
+    .hero-buttons{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1100px) {
-  .sidebar { display: none; }
-  .page-layout { padding: 0 16px; }
-}
-@media (max-width: 768px) {
-  .nav-links, .nav-right { display: none; }
-  .hamburger { display: flex; margin-left: auto; }
-  .hero-content { padding: 60px 24px; }
-  .hero-stats { gap: 24px; }
-  .hero-kanji { font-size: 120px; opacity: 0.5; }
-  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .onryo-card { flex-direction: column; }
-  .game-banner-top { flex-direction: column; }
-  .game-banner-kanji { display: none; }
-}
-@media (max-width: 480px) {
-  .footer-inner { grid-template-columns: 1fr; }
-  .hero-stats { flex-wrap: wrap; gap: 20px; }
-  .diff-grid { grid-template-columns: 1fr 1fr; }
-}
+    .primary-btn{
+      background:#dc2626;
+      padding:16px 28px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.3s;
+    }
 
-/* ===== UTILITY ===== */
-.mt-0 { margin-top: 0; }
-.section-spacer { height: 40px; }
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 3px 9px;
-  border-radius: 4px;
-  border: 1px solid;
-}
-.chip-gold { color: var(--gold); border-color: rgba(200,150,62,0.3); background: var(--gold-dim); }
-.chip-red { color: #e07878; border-color: rgba(192,57,43,0.3); background: rgba(192,57,43,0.08); }
-.chip-jade { color: var(--jade-light); border-color: rgba(90,184,159,0.3); background: rgba(90,184,159,0.08); }
-.divider {
-  height: 1px;
-  background: var(--border);
-  margin: 32px 0;
-}
+    .primary-btn:hover{
+      background:#ef4444;
+      transform:translateY(-3px);
+    }
 
-/* ===== SCROLL ANIMATIONS ===== */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-</style>
+    .secondary-btn{
+      border:1px solid rgba(255,255,255,.12);
+      padding:16px 28px;
+      border-radius:14px;
+      color:#d1d5db;
+      transition:.3s;
+    }
+
+    .secondary-btn:hover{
+      border-color:#dc2626;
+      color:white;
+    }
+
+    .hero-card{
+      width:420px;
+      background:linear-gradient(145deg,#111827,#09090b);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:28px;
+      padding:30px;
+      box-shadow:0 0 40px rgba(0,0,0,.5);
+    }
+
+    .hero-card h3{
+      margin-bottom:22px;
+      font-size:1.4rem;
+    }
+
+    .difficulty-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .difficulty{
+      background:#0f172a;
+      border-radius:18px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,.05);
+      transition:.3s;
+    }
+
+    .difficulty:hover{
+      transform:translateY(-5px);
+      border-color:#dc2626;
+    }
+
+    .difficulty h4{
+      margin-bottom:10px;
+      font-size:1.1rem;
+    }
+
+    .difficulty p{
+      color:#9ca3af;
+      font-size:.95rem;
+      margin-bottom:5px;
+    }
+
+    section{
+      padding:90px 7%;
+    }
+
+    .section-title{
+      font-size:2.6rem;
+      margin-bottom:16px;
+      font-weight:800;
+    }
+
+    .section-subtitle{
+      color:#9ca3af;
+      max-width:700px;
+      margin-bottom:50px;
+      line-height:1.8;
+    }
+
+    .mission-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:24px;
+    }
+
+    .mission-card{
+      background:linear-gradient(145deg,#111827,#09090b);
+      border-radius:24px;
+      padding:28px;
+      border:1px solid rgba(255,255,255,.05);
+      transition:.3s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .mission-card::before{
+      content:'';
+      position:absolute;
+      width:120px;
+      height:120px;
+      background:#dc262622;
+      border-radius:50%;
+      top:-30px;
+      right:-30px;
+    }
+
+    .mission-card:hover{
+      transform:translateY(-8px);
+      border-color:#dc2626;
+    }
+
+    .mission-card h3{
+      margin-bottom:14px;
+      font-size:1.4rem;
+    }
+
+    .mission-card p{
+      color:#9ca3af;
+      line-height:1.7;
+      margin-bottom:18px;
+    }
+
+    .tag{
+      display:inline-block;
+      background:#dc262622;
+      color:#f87171;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:.85rem;
+      font-weight:600;
+    }
+
+    .classes{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:24px;
+    }
+
+    .class-card{
+      background:#0f172a;
+      border-radius:22px;
+      padding:26px;
+      border:1px solid rgba(255,255,255,.05);
+      transition:.3s;
+    }
+
+    .class-card:hover{
+      transform:translateY(-5px);
+      border-color:#dc2626;
+    }
+
+    .class-card h3{
+      margin-bottom:16px;
+    }
+
+    .class-card ul{
+      padding-left:18px;
+      color:#9ca3af;
+      line-height:1.8;
+    }
+
+    .trophy-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:22px;
+    }
+
+    .trophy-card{
+      background:linear-gradient(145deg,#111827,#09090b);
+      border-radius:22px;
+      padding:24px;
+      border:1px solid rgba(255,255,255,.05);
+      transition:.3s;
+    }
+
+    .trophy-card:hover{
+      border-color:gold;
+      transform:translateY(-5px);
+    }
+
+    .trophy-card h4{
+      margin-bottom:12px;
+      color:#facc15;
+    }
+
+    .trophy-card p{
+      color:#9ca3af;
+      line-height:1.7;
+    }
+
+    .footer{
+      padding:50px 7%;
+      border-top:1px solid rgba(255,255,255,.05);
+      margin-top:70px;
+      text-align:center;
+      color:#6b7280;
+    }
+
+    @media(max-width:1000px){
+
+      .hero{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .hero-card{
+        width:100%;
+      }
+
+      .hero-text h1{
+        font-size:3.4rem;
+      }
+
+      .nav-links{
+        display:none;
+      }
+
+    }
+
+  </style>
 </head>
 <body>
 
-<!-- SEARCH OVERLAY -->
-<div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)">
-  <div class="search-modal" onclick="event.stopPropagation()">
-    <div class="search-modal-input">
-      <span>🔍</span>
-      <input type="text" id="searchInput" placeholder="Search missions, enemies, builds..." oninput="handleSearch(this.value)" autofocus>
+  <nav class="navbar">
+    <div class="logo">
+      GameRoute <span>Archive</span>
     </div>
-    <div class="search-results" id="searchResults">
-      <div class="search-result" onclick="scrollToSection('campaign')">
-        <div class="search-result-icon">⚔️</div>
-        <div class="search-result-info">
-          <div class="search-result-title">The Spider — Campaign</div>
-          <div class="search-result-type">Campaign Arc</div>
-        </div>
-      </div>
-      <div class="search-result" onclick="scrollToSection('xp')">
-        <div class="search-result-icon">✨</div>
-        <div class="search-result-info">
-          <div class="search-result-title">XP System & Difficulty Tiers</div>
-          <div class="search-result-type">Progression</div>
-        </div>
-      </div>
-      <div class="search-result" onclick="scrollToSection('enemies')">
-        <div class="search-result-icon">👹</div>
-        <div class="search-result-info">
-          <div class="search-result-title">Enemy & Boss Database</div>
-          <div class="search-result-type">Database</div>
-        </div>
-      </div>
-      <div class="search-result" onclick="scrollToSection('classes')">
-        <div class="search-result-icon">🥷</div>
-        <div class="search-result-info">
-          <div class="search-result-title">Classes & Builds</div>
-          <div class="search-result-type">Builds</div>
-        </div>
-      </div>
-      <div class="search-result" onclick="scrollToSection('onryo')">
-        <div class="search-result-icon">👁️</div>
-        <div class="search-result-info">
-          <div class="search-result-title">Onryō Token System</div>
-          <div class="search-result-type">Mechanic</div>
-        </div>
-      </div>
-      <div class="search-result" onclick="scrollToSection('tracker')">
-        <div class="search-result-icon">📋</div>
-        <div class="search-result-info">
-          <div class="search-result-title">Progress Tracker</div>
-          <div class="search-result-type">Tracker</div>
-        </div>
-      </div>
-    </div>
-    <div class="search-hint">
-      <span><kbd>↵</kbd> Select</span>
-      <span><kbd>Esc</kbd> Close</span>
-      <span><kbd>⌘K</kbd> Quick open</span>
-    </div>
-  </div>
-</div>
 
-<!-- MOBILE NAV -->
-<div class="mobile-nav" id="mobileNav">
-  <a href="#campaign" onclick="closeMobileNav()">⚔️ Campaign</a>
-  <a href="#xp" onclick="closeMobileNav()">✨ XP System</a>
-  <a href="#onryo" onclick="closeMobileNav()">👁️ Onryō Tokens</a>
-  <a href="#enemies" onclick="closeMobileNav()">👹 Enemy Database</a>
-  <a href="#classes" onclick="closeMobileNav()">🥷 Classes & Builds</a>
-  <a href="#lore" onclick="closeMobileNav()">📜 Lore</a>
-  <a href="#tracker" onclick="closeMobileNav()">📋 Tracker</a>
-  <a href="#community" onclick="closeMobileNav()">💬 Community</a>
-</div>
-
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#">
-    <div class="nav-logo-icon">刃</div>
-    <div class="nav-logo-text">
-      GameRoute Archive
-      <span>Game Database</span>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Campaign</a>
+      <a href="#">Classes</a>
+      <a href="#">Trophies</a>
+      <a href="#">Database</a>
+      <a href="#" class="discord-btn">Join Discord</a>
     </div>
-  </a>
-  <div class="nav-divider"></div>
-  <ul class="nav-links">
-    <li><a href="#campaign" class="active">Campaign</a></li>
-    <li><a href="#xp">XP System</a></li>
-    <li><a href="#enemies">Enemies</a></li>
-    <li><a href="#classes">Builds</a></li>
-    <li><a href="#lore">Lore</a></li>
-    <li><a href="#tracker">Tracker</a></li>
-    <li><a href="#community">Community</a></li>
-  </ul>
-  <div class="nav-right">
-    <div class="nav-search" onclick="openSearch()">
-      <span>🔍</span>
-      <input type="text" placeholder="Search database..." readonly onclick="openSearch()">
-    </div>
-    <a class="btn btn-discord" href="#">⚡ Discord</a>
-    <a class="btn btn-gold" href="#">Sign In</a>
-  </div>
-  <div class="hamburger" onclick="toggleMobileNav()" id="hamburger">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
+  </nav>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-kanji">幽霊 妖怪 刀</div>
-  <div class="hero-content">
-    <div class="hero-badge">Live Database · Ghost of Yōtei Legends</div>
-    <h1><em>GameRoute</em><br>Archive</h1>
-    <div class="hero-sub">幽霊の伝説 — Legends of the Spirit</div>
-    <p class="hero-desc">
-      The definitive community database for Ghost of Yōtei Legends — missions, builds, XP systems, enemy codex, lore, collectibles, and more. Built for completionists.
+  <section class="hero">
+
+    <div class="hero-text">
+      <h1>
+        The Ultimate <span>Ghost of Yōtei Legends</span> Database
+      </h1>
+
+      <p>
+        Explore missions, incursions, trophies, classes, progression systems,
+        difficulty scaling, XP multipliers, survival maps, raids, and endgame builds
+        inside the most complete Ghost of Yōtei Legends archive.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#" class="primary-btn">Explore Database</a>
+        <a href="#" class="secondary-btn">View Missions</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+
+      <h3>Difficulty Overview</h3>
+
+      <div class="difficulty-grid">
+
+        <div class="difficulty">
+          <h4>Bronze</h4>
+          <p>200 XP</p>
+          <p>3 Onryo Tokens</p>
+          <p>Recommended Ki: 5</p>
+        </div>
+
+        <div class="difficulty">
+          <h4>Silver</h4>
+          <p>400 XP</p>
+          <p>2 Onryo Tokens</p>
+          <p>Recommended Ki: 20</p>
+        </div>
+
+        <div class="difficulty">
+          <h4>Gold</h4>
+          <p>600 XP</p>
+          <p>1 Onryo Token</p>
+          <p>Recommended Ki: 70</p>
+        </div>
+
+        <div class="difficulty">
+          <h4>Platinum</h4>
+          <p>800 XP</p>
+          <p>No Tokens</p>
+          <p>Recommended Ki: 100</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <h2 class="section-title">Campaign Missions</h2>
+
+    <p class="section-subtitle">
+      Fight through The Spider campaign and uncover the most dangerous encounters,
+      incursions, survival challenges, and raid missions in Ghost of Yōtei Legends.
     </p>
-    <div class="hero-actions">
-      <a class="btn btn-gold" href="#campaign">⚔️ View Campaign</a>
-      <a class="btn btn-ghost" href="#tracker">📋 Track Progress</a>
-      <a class="btn btn-discord" href="#">Join Discord</a>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <span class="hero-stat-val">4</span>
-        <span class="hero-stat-lbl">Missions</span>
-      </div>
-      <div>
-        <span class="hero-stat-val">4</span>
-        <span class="hero-stat-lbl">Difficulty Tiers</span>
-      </div>
-      <div>
-        <span class="hero-stat-val">800</span>
-        <span class="hero-stat-lbl">Max XP / Mission</span>
-      </div>
-      <div>
-        <span class="hero-stat-val">4</span>
-        <span class="hero-stat-lbl">Classes</span>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- MAIN CONTENT -->
-<div class="page-layout">
+    <div class="mission-grid">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-label">Navigation</div>
-      <a class="sidebar-link active" href="#campaign" onclick="setActive(this)">
-        <span class="icon">⚔️</span> Campaign
-        <span class="badge">4</span>
-      </a>
-      <a class="sidebar-link" href="#xp" onclick="setActive(this)">
-        <span class="icon">✨</span> XP System
-      </a>
-      <a class="sidebar-link" href="#onryo" onclick="setActive(this)">
-        <span class="icon">👁️</span> Onryō Tokens
-      </a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Database</div>
-      <a class="sidebar-link" href="#enemies" onclick="setActive(this)">
-        <span class="icon">👹</span> Enemy Codex
-        <span class="badge">6</span>
-      </a>
-      <a class="sidebar-link" href="#classes" onclick="setActive(this)">
-        <span class="icon">🥷</span> Classes & Builds
-        <span class="badge">4</span>
-      </a>
-      <a class="sidebar-link" href="#lore" onclick="setActive(this)">
-        <span class="icon">📜</span> Lore
-      </a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Tools</div>
-      <a class="sidebar-link" href="#tracker" onclick="setActive(this)">
-        <span class="icon">📋</span> Progress Tracker
-      </a>
-      <a class="sidebar-link" href="#community" onclick="setActive(this)">
-        <span class="icon">💬</span> Community
-      </a>
-    </div>
-    <div class="sidebar-section" style="margin-top:16px">
-      <div style="background:var(--gold-dim);border:1px solid rgba(200,150,62,0.2);border-radius:8px;padding:14px;">
-        <div style="font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:6px;">🗡️ The Spider Arc</div>
-        <div style="font-family:var(--font-ui);font-size:12px;color:var(--text-2);line-height:1.5;">Currently documenting Campaign Arc 1. More content expanding soon.</div>
+      <div class="mission-card">
+        <span class="tag">Mission I</span>
+        <h3>Black Powder, Black Hearts</h3>
+        <p>
+          Battle through the opening chapter of The Spider storyline and survive
+          increasingly aggressive enemy encounters.
+        </p>
       </div>
-    </div>
-  </aside>
 
-  <!-- MAIN -->
-  <main class="main-content">
-
-    <!-- GAME BANNER -->
-    <div class="game-banner reveal">
-      <div class="game-banner-kanji">幽霊伝説</div>
-      <div class="game-banner-inner">
-        <div class="game-banner-top">
-          <div class="game-cover">⛩️</div>
-          <div class="game-banner-meta">
-            <div class="game-title-main">Ghost of <em>Yōtei</em> Legends</div>
-            <div class="game-title-sub">幽霊 — ゲームデータベース</div>
-            <div class="game-tags">
-              <span class="tag tag-action">Action RPG</span>
-              <span class="tag tag-multiplayer">Co-op Multiplayer</span>
-              <span class="tag tag-ps5">PS5 / PC</span>
-              <span class="tag tag-new">New</span>
-            </div>
-            <div style="font-size:14px;color:var(--text-2);line-height:1.7;max-width:540px;">
-              A legends-mode co-op experience set in the mythic Hokkaido wilderness. Battle supernatural spirits, climb through difficulty tiers, and forge your legend as warrior, shinobi, hunter, or ronin.
-            </div>
-          </div>
-        </div>
-        <div class="game-banner-footer">
-          <div class="game-meta-item">
-            <span class="game-meta-label">Genre</span>
-            <span class="game-meta-value">Action RPG / Co-op</span>
-          </div>
-          <div class="game-meta-item">
-            <span class="game-meta-label">Setting</span>
-            <span class="game-meta-value">Feudal Hokkaido</span>
-          </div>
-          <div class="game-meta-item">
-            <span class="game-meta-label">Max Players</span>
-            <span class="game-meta-value">4</span>
-          </div>
-          <div class="game-meta-item">
-            <span class="game-meta-label">Arcs</span>
-            <span class="game-meta-value">1 Available</span>
-          </div>
-          <a class="btn btn-gold" href="#campaign" style="margin-left:auto">View Campaign →</a>
-        </div>
+      <div class="mission-card">
+        <span class="tag">Mission II</span>
+        <h3>Bloodthirsty Jubokko</h3>
+        <p>
+          Face deadly supernatural threats while pushing deeper into cursed territory
+          filled with ambushes and challenge modifiers.
+        </p>
       </div>
+
+      <div class="mission-card">
+        <span class="tag">Mission III</span>
+        <h3>The Final Safeguards</h3>
+        <p>
+          The final confrontation of The Spider campaign featuring endgame-level
+          combat and coordinated survival mechanics.
+        </p>
+      </div>
+
+      <div class="mission-card">
+        <span class="tag">Incursion</span>
+        <h3>The Spider's Web</h3>
+        <p>
+          A high difficulty incursion mission designed for advanced players seeking
+          greater rewards and harder enemy encounters.
+        </p>
+      </div>
+
     </div>
 
-    <!-- CAMPAIGN SECTION -->
-    <section id="campaign">
-      <div class="section-header reveal">
-        <div class="section-header-line"></div>
-        <div class="section-title">Campaign <span>Arc I — The Spider</span></div>
+  </section>
+
+  <section>
+
+    <h2 class="section-title">Classes</h2>
+
+    <p class="section-subtitle">
+      Master unique combat styles and specialize your role through aggressive melee,
+      ranged precision, stealth assassinations, or frontline support.
+    </p>
+
+    <div class="classes">
+
+      <div class="class-card">
+        <h3>Samurai</h3>
+
+        <ul>
+          <li>Frontline melee fighter</li>
+          <li>High survivability</li>
+          <li>Strong sustained combat</li>
+          <li>Best for aggressive players</li>
+        </ul>
       </div>
 
-      <div style="font-size:15px;color:var(--text-2);line-height:1.75;margin-bottom:24px;" class="reveal">
-        The Spider arc introduces the first campaign of Ghost of Yōtei Legends. Three story missions culminate in the Incursion finale — a brutal cooperative test demanding your highest mastery. Each mission scales with difficulty, rewarding coordination and skill with greater XP and loot.
+      <div class="class-card">
+        <h3>Archer</h3>
+
+        <ul>
+          <li>Long-range precision damage</li>
+          <li>Excellent crowd control</li>
+          <li>Strong support pressure</li>
+          <li>High mobility gameplay</li>
+        </ul>
       </div>
 
-      <!-- MISSION CARDS -->
-      <div class="mission-grid reveal">
+      <div class="class-card">
+        <h3>Mercenary</h3>
 
-        <!-- Mission 1 -->
-        <div class="mission-card" id="mission1">
-          <div class="mission-header" onclick="toggleMission('mission1')">
-            <span class="mission-num">Mission I</span>
-            <div>
-              <div class="mission-title">Black Powder, Black Hearts</div>
-              <div class="mission-meta-row">
-                <span>⚔️ Story Mission</span>
-                <span>·</span>
-                <span>Max 800 XP</span>
-              </div>
-            </div>
-            <span class="mission-chevron">⌄</span>
-          </div>
-          <div class="mission-body">
-            <p class="mission-lore">"The merchant's lanterns dimmed as smoke curled through the valley. Something old stirred beneath the black powder stores — and it was hungry."</p>
-            <div class="mission-details-grid">
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Arc</div>
-                <div class="mission-detail-value">The Spider</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Type</div>
-                <div class="mission-detail-value">Story Mission</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Max Difficulty</div>
-                <div class="mission-detail-value">Platinum</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Max XP Reward</div>
-                <div class="mission-detail-value" style="color:var(--platinum)">800 XP</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Recommended Level</div>
-                <div class="mission-detail-value">Any</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Players</div>
-                <div class="mission-detail-value">1–4</div>
-              </div>
-            </div>
-            <div style="font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-3);margin-bottom:8px;">Difficulty Rewards</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <span class="chip chip-gold" style="color:var(--bronze);border-color:rgba(205,127,50,0.3);background:rgba(205,127,50,0.08);">🥉 Bronze · 200 XP</span>
-              <span class="chip chip-gold" style="color:var(--silver-light);border-color:rgba(138,155,176,0.3);background:rgba(138,155,176,0.08);">🥈 Silver · 400 XP</span>
-              <span class="chip chip-gold">🥇 Gold · 600 XP</span>
-              <span class="chip chip-gold" style="color:var(--platinum);border-color:rgba(212,232,240,0.25);background:rgba(212,232,240,0.05);">💎 Platinum · 800 XP</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mission 2 -->
-        <div class="mission-card" id="mission2">
-          <div class="mission-header" onclick="toggleMission('mission2')">
-            <span class="mission-num">Mission II</span>
-            <div>
-              <div class="mission-title">Bloodthirsty Jubokko</div>
-              <div class="mission-meta-row">
-                <span>⚔️ Story Mission</span>
-                <span>·</span>
-                <span>Max 800 XP</span>
-              </div>
-            </div>
-            <span class="mission-chevron">⌄</span>
-          </div>
-          <div class="mission-body">
-            <p class="mission-lore">"The Jubokko — blood-drinking trees of legend — had awakened in the sacred grove. Their roots were red. Their hunger was older than memory."</p>
-            <div class="mission-details-grid">
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Arc</div>
-                <div class="mission-detail-value">The Spider</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Type</div>
-                <div class="mission-detail-value">Story Mission</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Featured Enemy</div>
-                <div class="mission-detail-value" style="color:#e07878;">Jubokko Spirit</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Max XP Reward</div>
-                <div class="mission-detail-value" style="color:var(--platinum)">800 XP</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Challenge Cards</div>
-                <div class="mission-detail-value">Silver+</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Players</div>
-                <div class="mission-detail-value">1–4</div>
-              </div>
-            </div>
-            <div style="font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-3);margin-bottom:8px;">Difficulty Rewards</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <span class="chip chip-gold" style="color:var(--bronze);border-color:rgba(205,127,50,0.3);background:rgba(205,127,50,0.08);">🥉 Bronze · 200 XP</span>
-              <span class="chip chip-gold" style="color:var(--silver-light);border-color:rgba(138,155,176,0.3);background:rgba(138,155,176,0.08);">🥈 Silver · 400 XP</span>
-              <span class="chip chip-gold">🥇 Gold · 600 XP</span>
-              <span class="chip chip-gold" style="color:var(--platinum);border-color:rgba(212,232,240,0.25);background:rgba(212,232,240,0.05);">💎 Platinum · 800 XP</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mission 3 -->
-        <div class="mission-card" id="mission3">
-          <div class="mission-header" onclick="toggleMission('mission3')">
-            <span class="mission-num">Mission III</span>
-            <div>
-              <div class="mission-title">The Final Safeguards</div>
-              <div class="mission-meta-row">
-                <span>⚔️ Story Mission</span>
-                <span>·</span>
-                <span>Max 800 XP</span>
-              </div>
-            </div>
-            <span class="mission-chevron">⌄</span>
-          </div>
-          <div class="mission-body">
-            <p class="mission-lore">"Three seals held the Spider's power in check. Three seals, each guarded by an Onryō commander. Break the seals — or be broken by them."</p>
-            <div class="mission-details-grid">
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Arc</div>
-                <div class="mission-detail-value">The Spider</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Type</div>
-                <div class="mission-detail-value">Story Mission</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Objective Type</div>
-                <div class="mission-detail-value">Multi-Seal Destroy</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Max XP Reward</div>
-                <div class="mission-detail-value" style="color:var(--platinum)">800 XP</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Challenge Cards</div>
-                <div class="mission-detail-value">Silver+</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Players</div>
-                <div class="mission-detail-value">1–4</div>
-              </div>
-            </div>
-            <div style="font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-3);margin-bottom:8px;">Difficulty Rewards</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <span class="chip chip-gold" style="color:var(--bronze);border-color:rgba(205,127,50,0.3);background:rgba(205,127,50,0.08);">🥉 Bronze · 200 XP</span>
-              <span class="chip chip-gold" style="color:var(--silver-light);border-color:rgba(138,155,176,0.3);background:rgba(138,155,176,0.08);">🥈 Silver · 400 XP</span>
-              <span class="chip chip-gold">🥇 Gold · 600 XP</span>
-              <span class="chip chip-gold" style="color:var(--platinum);border-color:rgba(212,232,240,0.25);background:rgba(212,232,240,0.05);">💎 Platinum · 800 XP</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Incursion -->
-        <div class="mission-card" id="incursion1">
-          <div class="mission-header" onclick="toggleMission('incursion1')">
-            <span class="mission-num incursion">Incursion</span>
-            <div>
-              <div class="mission-title">The Spider's Web</div>
-              <div class="mission-meta-row">
-                <span>🕷️ Final Incursion</span>
-                <span>·</span>
-                <span>Max 800 XP</span>
-              </div>
-            </div>
-            <span class="mission-chevron">⌄</span>
-          </div>
-          <div class="mission-body">
-            <p class="mission-lore">"At the heart of the web sits the Spider — ancient, patient, merciless. All roads led here. Only the worthy may pass through its silk alive."</p>
-            <div class="mission-details-grid">
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Arc</div>
-                <div class="mission-detail-value">The Spider</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Type</div>
-                <div class="mission-detail-value" style="color:var(--jade-light)">Incursion</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Boss</div>
-                <div class="mission-detail-value" style="color:#e07878;">The Spider</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Max XP Reward</div>
-                <div class="mission-detail-value" style="color:var(--platinum)">800 XP</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Requires</div>
-                <div class="mission-detail-value">All 3 Missions</div>
-              </div>
-              <div class="mission-detail-item">
-                <div class="mission-detail-label">Players</div>
-                <div class="mission-detail-value">1–4 (Recommended 4)</div>
-              </div>
-            </div>
-            <div style="background:rgba(90,184,159,0.07);border:1px solid rgba(90,184,159,0.2);border-radius:6px;padding:12px 14px;margin-top:4px;font-family:var(--font-ui);font-size:13px;color:var(--jade-light);">
-              ⚠️ Incursions are the hardest missions in each arc. Complete all three story missions first to unlock.
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- XP SYSTEM -->
-    <section id="xp">
-      <div class="section-header reveal">
-        <div class="section-header-line"></div>
-        <div class="section-title">XP System <span>Difficulty Tiers</span></div>
+        <ul>
+          <li>Balanced combat/support role</li>
+          <li>Team utility focus</li>
+          <li>Adaptable loadouts</li>
+          <li>Reliable survivability</li>
+        </ul>
       </div>
 
-      <!-- XP CHART -->
-      <div class="xp-chart-section reveal">
-        <div class="xp-chart">
-          <div style="font-family:var(--font-ui);font-size:12px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-3);margin-bottom:20px;">Story Mission XP Rewards by Difficulty</div>
-          <div class="xp-bars">
-            <div class="xp-bar-wrap b">
-              <div class="xp-bar-val">200</div>
-              <div class="xp-bar b" style="height:25%"></div>
-            </div>
-            <div class="xp-bar-wrap s">
-              <div class="xp-bar-val">400</div>
-              <div class="xp-bar s" style="height:50%"></div>
-            </div>
-            <div class="xp-bar-wrap g">
-              <div class="xp-bar-val">600</div>
-              <div class="xp-bar g" style="height:75%"></div>
-            </div>
-            <div class="xp-bar-wrap p">
-              <div class="xp-bar-val">800</div>
-              <div class="xp-bar p" style="height:100%"></div>
-            </div>
-          </div>
-          <div style="display:flex;gap:20px;justify-content:space-around;padding-top:8px;">
-            <div style="flex:1;text-align:center;font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--bronze);">🥉 Bronze</div>
-            <div style="flex:1;text-align:center;font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--silver-light);">🥈 Silver</div>
-            <div style="flex:1;text-align:center;font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold-light);">🥇 Gold</div>
-            <div style="flex:1;text-align:center;font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--platinum);">💎 Platinum</div>
-          </div>
-        </div>
+      <div class="class-card">
+        <h3>Shinobi</h3>
+
+        <ul>
+          <li>Stealth assassination specialist</li>
+          <li>Fast mobility</li>
+          <li>High burst damage</li>
+          <li>Weak in direct combat</li>
+        </ul>
       </div>
 
-      <!-- DIFFICULTY CARDS -->
-      <div class="diff-section reveal">
-        <div class="diff-grid">
-          <!-- Bronze -->
-          <div class="diff-card bronze">
-            <div class="diff-tier-name">🥉 Bronze</div>
-            <div class="diff-xp">200</div>
-            <div class="diff-xp-label">XP Reward</div>
-            <ul class="diff-features">
-              <li>3 Onryō Tokens</li>
-              <li>1× XP Multiplier</li>
-              <li>Lower Enemy Aggression</li>
-              <li>No Challenge Cards</li>
-            </ul>
-            <div class="diff-multiplier">
-              <span class="mult-badge">1× XP</span>
-              <span class="mult-label">Base multiplier</span>
-            </div>
-          </div>
-          <!-- Silver -->
-          <div class="diff-card silver">
-            <div class="diff-tier-name">🥈 Silver</div>
-            <div class="diff-xp">400</div>
-            <div class="diff-xp-label">XP Reward</div>
-            <ul class="diff-features">
-              <li>2 Onryō Tokens</li>
-              <li>2× XP Multiplier</li>
-              <li>Challenge Cards Active</li>
-              <li>Standard Aggression</li>
-            </ul>
-            <div class="diff-multiplier">
-              <span class="mult-badge">2× XP</span>
-              <span class="mult-label">Double multiplier</span>
-            </div>
-          </div>
-          <!-- Gold -->
-          <div class="diff-card gold">
-            <div class="diff-tier-name">🥇 Gold</div>
-            <div class="diff-xp">600</div>
-            <div class="diff-xp-label">XP Reward</div>
-            <ul class="diff-features">
-              <li>1 Onryō Token</li>
-              <li>3× XP Multiplier</li>
-              <li>Challenge Cards Active</li>
-              <li>High Enemy Aggression</li>
-            </ul>
-            <div class="diff-multiplier">
-              <span class="mult-badge">3× XP</span>
-              <span class="mult-label">Triple multiplier</span>
-            </div>
-          </div>
-          <!-- Platinum -->
-          <div class="diff-card platinum">
-            <div class="diff-tier-name">💎 Platinum</div>
-            <div class="diff-xp">800</div>
-            <div class="diff-xp-label">XP Reward</div>
-            <ul class="diff-features">
-              <li>No Onryō Tokens</li>
-              <li>4× XP Multiplier</li>
-              <li>Challenge Cards Active</li>
-              <li>Maximum Aggression</li>
-            </ul>
-            <div class="diff-multiplier">
-              <span class="mult-badge">4× XP</span>
-              <span class="mult-label">Quad multiplier</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Comparison table -->
-        <div style="background:var(--ink-2);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;">
-          <div style="padding:16px 20px;border-bottom:1px solid var(--border);">
-            <div style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text-1);">Difficulty Comparison Table</div>
-          </div>
-          <div style="overflow-x:auto;">
-            <table style="width:100%;border-collapse:collapse;font-family:var(--font-ui);font-size:13px;">
-              <thead>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <th style="padding:12px 20px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-3);font-weight:700;">Feature</th>
-                  <th style="padding:12px 16px;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--bronze);">🥉 Bronze</th>
-                  <th style="padding:12px 16px;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--silver-light);">🥈 Silver</th>
-                  <th style="padding:12px 16px;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold-light);">🥇 Gold</th>
-                  <th style="padding:12px 16px;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--platinum);">💎 Platinum</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <td style="padding:12px 20px;color:var(--text-2);">XP Reward</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--bronze);font-weight:700;">200</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--silver-light);font-weight:700;">400</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--gold-light);font-weight:700;">600</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--platinum);font-weight:700;">800</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <td style="padding:12px 20px;color:var(--text-2);">XP Multiplier</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--text-2);">1×</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--text-2);">2×</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--text-2);">3×</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--text-2);">4×</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <td style="padding:12px 20px;color:var(--text-2);">Onryō Tokens</td>
-                  <td style="padding:12px 16px;text-align:center;color:#e07878;">3</td>
-                  <td style="padding:12px 16px;text-align:center;color:#e07878;">2</td>
-                  <td style="padding:12px 16px;text-align:center;color:#e07878;">1</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--jade-light);">None</td>
-                </tr>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <td style="padding:12px 20px;color:var(--text-2);">Challenge Cards</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--text-3);">✕ Off</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--jade-light);">✓ Active</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--jade-light);">✓ Active</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--jade-light);">✓ Active</td>
-                </tr>
-                <tr>
-                  <td style="padding:12px 20px;color:var(--text-2);">Enemy Aggression</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--jade-light);">Low</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--gold-light);">Normal</td>
-                  <td style="padding:12px 16px;text-align:center;color:var(--bronze);">High</td>
-                  <td style="padding:12px 16px;text-align:center;color:#e07878;">Maximum</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ONRYO TOKENS -->
-    <section id="onryo">
-      <div class="section-header reveal">
-        <div class="section-header-line"></div>
-        <div class="section-title">Onryō Tokens <span>Core Mechanic</span></div>
-      </div>
-
-      <div class="onryo-card reveal">
-        <div class="onryo-icon-wrap">👁️</div>
-        <div class="onryo-info">
-          <div class="onryo-title">What are Onryō Tokens?</div>
-          <div class="onryo-desc">
-            Onryō Tokens represent your lifeline against the supernatural forces of Yōtei. Each token is a spiritual anchor — spend them to recover from lethal encounters. The harder the difficulty, the fewer tokens you receive, demanding greater skill, coordination, and precision from your team.
-          </div>
-          <div style="font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-3);margin-bottom:10px;">Token Allotment by Difficulty</div>
-          <div class="onryo-tokens-visual">
-            <div class="onryo-token"><span>🥉</span> Bronze — 3 Tokens</div>
-            <div class="onryo-token"><span>🥈</span> Silver — 2 Tokens</div>
-            <div class="onryo-token"><span>🥇</span> Gold — 1 Token</div>
-            <div class="onryo-token" style="background:rgba(212,232,240,0.05);border-color:rgba(212,232,240,0.15);color:var(--platinum);"><span>💎</span> Platinum — 0 Tokens</div>
-          </div>
-          <table class="onryo-table" style="margin-top:20px;">
-            <thead>
-              <tr>
-                <th>Difficulty</th>
-                <th>Tokens</th>
-                <th>Effect</th>
-                <th>Risk Level</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="color:var(--bronze);">🥉 Bronze</td>
-                <td>3</td>
-                <td>3 revival opportunities per run</td>
-                <td style="color:var(--jade-light);">Low</td>
-              </tr>
-              <tr>
-                <td style="color:var(--silver-light);">🥈 Silver</td>
-                <td>2</td>
-                <td>2 revival opportunities per run</td>
-                <td style="color:var(--gold-light);">Medium</td>
-              </tr>
-              <tr>
-                <td style="color:var(--gold-light);">🥇 Gold</td>
-                <td>1</td>
-                <td>1 revival — use wisely</td>
-                <td style="color:var(--bronze);">High</td>
-              </tr>
-              <tr>
-                <td style="color:var(--platinum);">💎 Platinum</td>
-                <td>0</td>
-                <td>One life only — no second chances</td>
-                <td style="color:#e07878;">Extreme</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ENEMY DATABASE -->
-    <section id="enemies">
-      <div class="section-header reveal">
-        <div class="section-header-line"></div>
-        <div class="section-title">Enemy Codex <span>The Spider Arc</span></div>
-      </div>
-
-      <div class="enemy-grid reveal">
-        <div class="enemy-card boss">
-          <div class="enemy-thumb">🕷️<span class="enemy-badge boss-badge">Boss</span></div>
-          <div class="enemy-info">
-            <div class="enemy-name">The Spider</div>
-            <div class="enemy-type">Arc Boss · Final Incursion</div>
-            <div class="enemy-tags">
-              <span class="enemy-tag">Supernatural</span>
-              <span class="enemy-tag">Yokai</span>
-              <span class="enemy-tag">Elite</span>
-            </div>
-          </div>
-        </div>
-        <div class="enemy-card boss">
-          <div class="enemy-thumb">👁️<span class="enemy-badge boss-badge">Boss</span></div>
-          <div class="enemy-info">
-            <div class="enemy-name">Jubokko Spirit</div>
-            <div class="enemy-type">Mission II Boss</div>
-            <div class="enemy-tags">
-              <span class="enemy-tag">Spirit</span>
-              <span class="enemy-tag">Blood</span>
-            </div>
-          </div>
-        </div>
-        <div class="enemy-card regular">
-          <div class="enemy-thumb">⛩️<span class="enemy-badge regular-badge">Elite</span></div>
-          <div class="enemy-info">
-            <div class="enemy-name">Onryō Commander</div>
-            <div class="enemy-type">Mini-Boss · Mission III</div>
-            <div class="enemy-tags">
-              <span class="enemy-tag">Onryō</span>
-              <span class="enemy-tag">Ranged</span>
-            </div>
-          </div>
-        </div>
-        <div class="enemy-card regular">
-          <div class="enemy-thumb">💀<span class="enemy-badge regular-badge">Standard</span></div>
-          <div class="enemy-info">
-            <div class="enemy-name">Onryō Soldier</div>
-            <div class="enemy-type">Standard Enemy</div>
-            <div class="enemy-tags">
-              <span class="enemy-tag">Melee</span>
-              <span class="enemy-tag">Pack</span>
-            </div>
-          </div>
-        </div>
-        <div class="enemy-card regular">
-          <div class="enemy-thumb">🔥<span class="enemy-badge regular-badge">Standard</span></div>
-          <div class="enemy-info">
-            <div class="enemy-name">Powder Shade</div>
-            <div class="enemy-type">Mission I Special</div>
-            <div class="enemy-tags">
-              <span class="enemy-tag">Fire</span>
-              <span class="enemy-tag">Explosive</span>
-            </div>
-          </div>
-        </div>
-        <div class="enemy-card regular">
-          <div class="enemy-thumb">🌿<span class="enemy-badge regular-badge">Standard</span></div>
-          <div class="enemy-info">
-            <div class="enemy-name">Root Wraith</div>
-            <div class="enemy-type">Mission II Minion</div>
-            <div class="enemy-tags">
-              <span class="enemy-tag">Plant</span>
-              <span class="enemy-tag">Bleed</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CLASSES & BUILDS -->
-    <section id="classes">
-      <div class="section-header reveal">
-        <div class="section-header-line"></div>
-        <div class="section-title">Classes &amp; Builds <span>Choose Your Path</span></div>
-      </div>
-
-      <div class="class-grid reveal">
-        <div class="class-card samurai">
-          <span class="class-icon">⚔️</span>
-          <div class="class-name">Samurai</div>
-          <div class="class-desc">Honorable warrior. High defense, powerful katana combos, great for frontline pressure and group protection.</div>
-        </div>
-        <div class="class-card ronin">
-          <span class="class-icon">🗡️</span>
-          <div class="class-name">Rōnin</div>
-          <div class="class-desc">Wandering blade for hire. Unpredictable, self-reliant, excels at reviving allies and solo plays.</div>
-        </div>
-        <div class="class-card shinobi">
-          <span class="class-icon">🥷</span>
-          <div class="class-name">Shinobi</div>
-          <div class="class-desc">Shadow operative. Swift assassination, stealth flanks, crowd control, and kunai disruption.</div>
-        </div>
-        <div class="class-card hunter">
-          <span class="class-icon">🏹</span>
-          <div class="class-name">Hunter</div>
-          <div class="class-desc">Eagle-eyed marksman. Ranged specialist with animal companions, traps, and precision arrow techniques.</div>
-        </div>
-      </div>
-
-      <div class="info-grid reveal">
-        <div class="info-card">
-          <span class="info-card-icon">🛡️</span>
-          <div class="info-card-title">Tank Build — Iron Samurai</div>
-          <div class="info-card-text">Maximize armor and guard breaks. Lead the party into Onryō formations while your Rōnin partner revives fallen allies from safety.</div>
-        </div>
-        <div class="info-card">
-          <span class="info-card-icon">⚡</span>
-          <div class="info-card-title">Speed Build — Shadow Wind</div>
-          <div class="info-card-text">Shinobi mobility + Hunter traps combo. Kite enemies into kill zones, break their aggro cycle, chain poison and bleed for massive damage.</div>
-        </div>
-        <div class="info-card">
-          <span class="info-card-icon">🌊</span>
-          <div class="info-card-title">Support Build — Spirit Healer</div>
-          <div class="info-card-text">Rōnin spirit healing plus Samurai bodyguarding. Essential for Platinum difficulty runs where Onryō Token management is critical.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- LORE -->
-    <section id="lore">
-      <div class="section-header reveal">
-        <div class="section-header-line"></div>
-        <div class="section-title">Lore <span>The World of Yōtei</span></div>
-      </div>
-
-      <div class="lore-card reveal">
-        <div class="lore-title">📜 The Legend of the Spider</div>
-        <div class="lore-text">
-          Long before the first sword was forged in the shadow of Mount Yōtei, the Spider wove its web across the spirit realm and the mortal world alike. It is neither demon nor god — it is older than both. Ancient texts discovered in the ruins of the Ainu sanctuaries describe it as a weaver of fates, a collector of final moments.
-          <br><br>
-          When the black powder merchants disturbed the sealed valleys, they tore the barrier between worlds. The Jubokko trees drank their blood. The Onryō — vengeful spirits of fallen warriors — marched again beneath the Spider's command. Three safeguards remained, and one by one, they fell.
-          <br><br>
-          Now the Spider waits at the center of its web. Patient. Eternal. Hungry.
-        </div>
-        <div class="lore-attribution">— Recovered from Ainu Settlement Records, The Spider Arc</div>
-      </div>
-
-      <div class="info-grid" style="margin-top:16px;" class="reveal">
-        <div class="info-card">
-          <span class="info-card-icon">🌸</span>
-          <div class="info-card-title">Mount Yōtei</div>
-          <div class="info-card-text">A dormant volcano in Hokkaido, revered by the Ainu people as a sacred site and home to powerful nature spirits. The game's supernatural events center around its ancient seal network.</div>
-        </div>
-        <div class="info-card">
-          <span class="info-card-icon">🌳</span>
-          <div class="info-card-title">The Jubokko</div>
-          <div class="info-card-text">Blood-drinking trees of Japanese folklore. In the Yōtei Legends canon, they grow on ancient battlefields where the dead outnumber the living, absorbing the vitality of those who pass beneath their branches.</div>
-        </div>
-        <div class="info-card">
-          <span class="info-card-icon">👻</span>
-          <div class="info-card-title">Onryō Spirits</div>
-          <div class="info-card-text">Vengeful ghosts born from unresolved deaths and intense negative emotion. In Legends mode, they serve as primary foot soldiers of the supernatural forces threatening the Yōtei region.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROGRESS TRACKER -->
-    <section id="tracker">
-      <div class="section-header reveal">
-        <div class="section-header-line"></div>
-        <div class="section-title">Progress Tracker <span>The Spider Arc</span></div>
-      </div>
-
-      <div class="tracker-card reveal">
-        <div class="tracker-header">
-          <div class="tracker-title">Campaign Completion</div>
-          <span class="chip chip-gold" id="progressLabel">1 / 4 Complete</span>
-        </div>
-        <div class="tracker-progress-bar">
-          <div class="tracker-progress-fill" id="progressFill"></div>
-        </div>
-        <div class="tracker-stat" id="progressXP">Total XP Earned: 200 / 3,200 XP</div>
-        <div class="checklist" id="checklist">
-          <div class="checklist-item done" onclick="toggleCheck(this)" data-xp="200">
-            <div class="checklist-check">✓</div>
-            <div class="checklist-label">Mission I — Black Powder, Black Hearts</div>
-            <div class="checklist-xp">+200 XP</div>
-          </div>
-          <div class="checklist-item" onclick="toggleCheck(this)" data-xp="200">
-            <div class="checklist-check"></div>
-            <div class="checklist-label">Mission II — Bloodthirsty Jubokko</div>
-            <div class="checklist-xp">+200 XP</div>
-          </div>
-          <div class="checklist-item" onclick="toggleCheck(this)" data-xp="200">
-            <div class="checklist-check"></div>
-            <div class="checklist-label">Mission III — The Final Safeguards</div>
-            <div class="checklist-xp">+200 XP</div>
-          </div>
-          <div class="checklist-item" onclick="toggleCheck(this)" data-xp="200">
-            <div class="checklist-check"></div>
-            <div class="checklist-label">Incursion — The Spider's Web</div>
-            <div class="checklist-xp">+200 XP</div>
-          </div>
-          <div class="checklist-item" onclick="toggleCheck(this)" data-xp="600">
-            <div class="checklist-check"></div>
-            <div class="checklist-label">Complete all missions on Gold difficulty</div>
-            <div class="checklist-xp">+600 XP</div>
-          </div>
-          <div class="checklist-item" onclick="toggleCheck(this)" data-xp="800">
-            <div class="checklist-check"></div>
-            <div class="checklist-label">Complete Incursion on Platinum — Zero Deaths</div>
-            <div class="checklist-xp">+800 XP</div>
-          </div>
-          <div class="checklist-item" onclick="toggleCheck(this)" data-xp="400">
-            <div class="checklist-check"></div>
-            <div class="checklist-label">Unlock all 4 Classes</div>
-            <div class="checklist-xp">+400 XP</div>
-          </div>
-          <div class="checklist-item" onclick="toggleCheck(this)" data-xp="200">
-            <div class="checklist-check"></div>
-            <div class="checklist-label">Defeat The Spider without using Onryō Tokens</div>
-            <div class="checklist-xp">+200 XP</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMMUNITY -->
-    <section id="community">
-      <div class="section-header reveal">
-        <div class="section-header-line"></div>
-        <div class="section-title">Community <span>GameRoute Archive</span></div>
-      </div>
-
-      <div class="community-card reveal">
-        <div class="discord-icon">💬</div>
-        <div class="community-info">
-          <div class="community-title">Join the GameRoute Archive Discord</div>
-          <div class="community-desc">
-            Connect with fellow Legends players, share builds, coordinate Platinum runs, submit community guides, report database errors, and get notified when new arcs drop. All levels welcome.
-          </div>
-          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
-            <a class="btn btn-discord" href="#">Join Server — GameRoute Archive</a>
-            <a class="btn btn-ghost" href="mailto:gameroutearchive@yahoo.com">📧 Email Us</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-grid" style="margin-top:16px;">
-        <div class="info-card reveal">
-          <span class="info-card-icon">📝</span>
-          <div class="info-card-title">Submit a Guide</div>
-          <div class="info-card-text">Community guides are the backbone of GameRoute Archive. Submit build guides, mission walkthroughs, speedrun routes, or lore analysis via Discord or email.</div>
-        </div>
-        <div class="info-card reveal">
-          <span class="info-card-icon">🐛</span>
-          <div class="info-card-title">Report Database Errors</div>
-          <div class="info-card-text">Spotted incorrect XP values, missing missions, or inaccurate data? Help us maintain database accuracy by reporting in Discord or emailing our team.</div>
-        </div>
-        <div class="info-card reveal">
-          <span class="info-card-icon">🔔</span>
-          <div class="info-card-title">Stay Updated</div>
-          <div class="info-card-text">New arcs, patches, and game content get added as they release. Follow Discord and check back often — this database grows with the game.</div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand-name"><em>GameRoute</em> Archive</div>
-      <div class="footer-brand-desc">
-        The community-driven database for Ghost of Yōtei Legends and future games. Built for completionists, maintained by players.
-      </div>
-      <div class="footer-contact">
-        <span>📧 <a href="mailto:gameroutearchive@yahoo.com">gameroutearchive@yahoo.com</a></span>
-        <span>💬 <a href="#">Discord: GameRoute Archive</a></span>
-      </div>
     </div>
-    <div>
-      <div class="footer-col-title">Ghost of Yōtei</div>
-      <ul class="footer-links">
-        <li><a href="#campaign">Campaign</a></li>
-        <li><a href="#xp">XP System</a></li>
-        <li><a href="#onryo">Onryō Tokens</a></li>
-        <li><a href="#enemies">Enemy Codex</a></li>
-        <li><a href="#classes">Builds</a></li>
-        <li><a href="#lore">Lore</a></li>
-      </ul>
+
+  </section>
+
+  <section>
+
+    <h2 class="section-title">Trophies</h2>
+
+    <p class="section-subtitle">
+      Track progression achievements and complete the hardest challenges across
+      Ghost of Yōtei Legends.
+    </p>
+
+    <div class="trophy-grid">
+
+      <div class="trophy-card">
+        <h4>Tale of Revenge</h4>
+        <p>Complete all story missions.</p>
+      </div>
+
+      <div class="trophy-card">
+        <h4>Student No More</h4>
+        <p>Reach Rank 25 with one class.</p>
+      </div>
+
+      <div class="trophy-card">
+        <h4>Vengeance Fulfilled</h4>
+        <p>Complete all four incursions.</p>
+      </div>
+
+      <div class="trophy-card">
+        <h4>Ghost Unyielding</h4>
+        <p>Complete a Survival mission on Gold difficulty or higher.</p>
+      </div>
+
+      <div class="trophy-card">
+        <h4>No More Lessons</h4>
+        <p>Reach Rank 25 with all classes.</p>
+      </div>
+
+      <div class="trophy-card">
+        <h4>Kaibyaku</h4>
+        <p>Complete The Dragon and Lord Saito raid missions.</p>
+      </div>
+
     </div>
-    <div>
-      <div class="footer-col-title">Database</div>
-      <ul class="footer-links">
-        <li><a href="#tracker">Progress Tracker</a></li>
-        <li><a href="#community">Submit Guide</a></li>
-        <li><a href="#">Collectibles</a></li>
-        <li><a href="#">Patch Notes</a></li>
-        <li><a href="#">Tier Lists</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Archive</div>
-      <ul class="footer-links">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Discord</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">More Games (Soon)</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 GameRoute Archive. Fan site — not affiliated with Sony or Sucker Punch Productions.</span>
-    <span>Built for the community · <a href="mailto:gameroutearchive@yahoo.com">gameroutearchive@yahoo.com</a></span>
-  </div>
-</footer>
 
-<script>
-// ===== SEARCH =====
-function openSearch() {
-  document.getElementById('searchOverlay').classList.add('open');
-  setTimeout(() => document.getElementById('searchInput').focus(), 100);
-}
-function closeSearch(e) {
-  if (!e || e.target === document.getElementById('searchOverlay')) {
-    document.getElementById('searchOverlay').classList.remove('open');
-    document.getElementById('searchInput').value = '';
-  }
-}
-document.addEventListener('keydown', (e) => {
-  if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
-  if (e.key === 'Escape') closeSearch();
-});
-function handleSearch(v) {
-  // Live filtering could be implemented here
-}
-function scrollToSection(id) {
-  closeSearch();
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-}
+  </section>
 
-// ===== MOBILE NAV =====
-function toggleMobileNav() {
-  const nav = document.getElementById('mobileNav');
-  nav.classList.toggle('open');
-}
-function closeMobileNav() {
-  document.getElementById('mobileNav').classList.remove('open');
-}
+  <footer class="footer">
+    © 2026 GameRoute Archive — Ghost of Yōtei Legends Database
+  </footer>
 
-// ===== MISSION TOGGLE =====
-function toggleMission(id) {
-  const card = document.getElementById(id);
-  card.classList.toggle('expanded');
-}
-
-// ===== SIDEBAR ACTIVE =====
-function setActive(el) {
-  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-  el.classList.add('active');
-}
-
-// ===== CHECKLIST / TRACKER =====
-function updateTracker() {
-  const items = document.querySelectorAll('.checklist-item');
-  const total = items.length;
-  let done = 0;
-  let earnedXP = 0;
-  let totalXP = 0;
-  items.forEach(item => {
-    const xp = parseInt(item.dataset.xp) || 200;
-    totalXP += xp;
-    if (item.classList.contains('done')) { done++; earnedXP += xp; }
-  });
-  const pct = Math.round((done / total) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = done + ' / ' + total + ' Complete';
-  document.getElementById('progressXP').textContent = 'Total XP Earned: ' + earnedXP.toLocaleString() + ' / ' + totalXP.toLocaleString() + ' XP';
-}
-function toggleCheck(el) {
-  el.classList.toggle('done');
-  if (el.classList.contains('done')) {
-    el.querySelector('.checklist-check').textContent = '✓';
-  } else {
-    el.querySelector('.checklist-check').textContent = '';
-  }
-  updateTracker();
-}
-updateTracker();
-
-// ===== SCROLL REVEAL =====
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 60);
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-// ===== SMOOTH SCROLL NAV =====
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', (e) => {
-    const href = a.getAttribute('href');
-    if (href === '#') return;
-    const target = document.querySelector(href);
-    if (target) {
-      e.preventDefault();
-      const offset = 80;
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  });
-});
-
-// ===== NAV ACTIVE ON SCROLL =====
-const sections = ['campaign','xp','onryo','enemies','classes','lore','tracker','community'];
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top < 120) current = id;
-  });
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-  });
-});
-</script>
 </body>
 </html>
