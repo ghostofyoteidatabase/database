@@ -1,597 +1,541 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GameRoute Archive</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>GameRoute Archive</title>
 
-  <style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+<style>
 
-    body{
-      font-family:'Inter',sans-serif;
-      background:#06070a;
-      color:white;
-      overflow-x:hidden;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    body::before{
-      content:'';
-      position:fixed;
-      width:100%;
-      height:100%;
-      background:
-      radial-gradient(circle at top left,#7a1c1c33,transparent 30%),
-      radial-gradient(circle at bottom right,#111827,transparent 40%);
-      z-index:-1;
-    }
+body{
+    background:#050505;
+    color:white;
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+}
 
-    a{
-      text-decoration:none;
-      color:white;
-    }
+/* BACKGROUND */
 
-    .navbar{
-      width:100%;
-      padding:24px 7%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:fixed;
-      top:0;
-      backdrop-filter:blur(18px);
-      background:rgba(5,5,8,.65);
-      border-bottom:1px solid rgba(255,255,255,.05);
-      z-index:1000;
-    }
+.background{
+    position:fixed;
+    inset:0;
+    background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.92)),
+    url('https://images.unsplash.com/photo-1549880181-56a44cf4a9a4?q=80&w=2070&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    z-index:-5;
+    transform:scale(1.05);
+}
 
-    .logo{
-      font-size:1.5rem;
-      font-weight:800;
-      letter-spacing:.5px;
-    }
+/* NAV */
 
-    .logo span{
-      color:#dc2626;
-    }
+nav{
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1000;
 
-    .nav-links{
-      display:flex;
-      gap:32px;
-      align-items:center;
-    }
+    padding:24px 6%;
 
-    .nav-links a{
-      color:#d1d5db;
-      transition:.3s;
-      font-weight:500;
-    }
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-    .nav-links a:hover{
-      color:white;
-    }
+    backdrop-filter:blur(14px);
+    background:rgba(0,0,0,.35);
 
-    .discord-btn{
-      padding:12px 20px;
-      background:#dc2626;
-      border-radius:12px;
-      font-weight:600;
-      transition:.3s;
-    }
+    border-bottom:1px solid rgba(255,255,255,.05);
+}
 
-    .discord-btn:hover{
-      background:#ef4444;
-      transform:translateY(-2px);
-    }
+.logo{
+    font-size:1.6rem;
+    font-weight:800;
+    letter-spacing:.5px;
+}
 
-    .hero{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:140px 7% 80px;
-      gap:80px;
-    }
+.logo span{
+    color:#dc2626;
+}
 
-    .hero-text{
-      max-width:650px;
-    }
+.nav-links{
+    display:flex;
+    gap:32px;
+}
 
-    .hero-text h1{
-      font-size:4.8rem;
-      line-height:1;
-      margin-bottom:24px;
-      font-weight:800;
-    }
+.nav-links a{
+    color:#b4b4b4;
+    text-decoration:none;
+    transition:.3s;
+    font-weight:500;
+}
 
-    .hero-text h1 span{
-      color:#dc2626;
-    }
+.nav-links a:hover{
+    color:white;
+}
 
-    .hero-text p{
-      color:#9ca3af;
-      font-size:1.1rem;
-      line-height:1.8;
-      margin-bottom:40px;
-    }
+/* HERO */
 
-    .hero-buttons{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-    }
+.hero{
+    min-height:100vh;
+    padding:140px 6% 80px;
 
-    .primary-btn{
-      background:#dc2626;
-      padding:16px 28px;
-      border-radius:14px;
-      font-weight:700;
-      transition:.3s;
-    }
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
 
-    .primary-btn:hover{
-      background:#ef4444;
-      transform:translateY(-3px);
-    }
+.hero-sub{
+    color:#dc2626;
+    text-transform:uppercase;
+    letter-spacing:4px;
+    margin-bottom:18px;
+    font-size:.85rem;
+    font-weight:700;
+}
 
-    .secondary-btn{
-      border:1px solid rgba(255,255,255,.12);
-      padding:16px 28px;
-      border-radius:14px;
-      color:#d1d5db;
-      transition:.3s;
-    }
+.hero h1{
+    font-size:6rem;
+    line-height:.95;
+    max-width:950px;
+    margin-bottom:28px;
+}
 
-    .secondary-btn:hover{
-      border-color:#dc2626;
-      color:white;
-    }
+.hero p{
+    max-width:700px;
+    color:#a1a1aa;
+    line-height:1.9;
+    font-size:1.1rem;
+    margin-bottom:40px;
+}
 
-    .hero-card{
-      width:420px;
-      background:linear-gradient(145deg,#111827,#09090b);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:28px;
-      padding:30px;
-      box-shadow:0 0 40px rgba(0,0,0,.5);
-    }
+/* BUTTONS */
 
-    .hero-card h3{
-      margin-bottom:22px;
-      font-size:1.4rem;
-    }
+.hero-buttons{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+}
 
-    .difficulty-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-    }
+.primary-btn{
+    padding:18px 34px;
+    background:#dc2626;
+    border-radius:18px;
+    color:white;
+    text-decoration:none;
+    font-weight:700;
+    transition:.35s;
+}
 
-    .difficulty{
-      background:#0f172a;
-      border-radius:18px;
-      padding:18px;
-      border:1px solid rgba(255,255,255,.05);
-      transition:.3s;
-    }
+.primary-btn:hover{
+    transform:translateY(-4px);
+    background:#ef4444;
+    box-shadow:0 15px 40px rgba(220,38,38,.45);
+}
 
-    .difficulty:hover{
-      transform:translateY(-5px);
-      border-color:#dc2626;
-    }
+.secondary-btn{
+    padding:18px 34px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.12);
+    color:white;
+    text-decoration:none;
+    transition:.35s;
+}
 
-    .difficulty h4{
-      margin-bottom:10px;
-      font-size:1.1rem;
-    }
+.secondary-btn:hover{
+    border-color:#dc2626;
+    background:rgba(255,255,255,.04);
+}
 
-    .difficulty p{
-      color:#9ca3af;
-      font-size:.95rem;
-      margin-bottom:5px;
-    }
+/* CAMPAIGN SECTION */
 
-    section{
-      padding:90px 7%;
-    }
+.campaign{
+    padding:60px 6% 120px;
+}
 
-    .section-title{
-      font-size:2.6rem;
-      margin-bottom:16px;
-      font-weight:800;
-    }
+.section-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:50px;
+    gap:40px;
+}
 
-    .section-subtitle{
-      color:#9ca3af;
-      max-width:700px;
-      margin-bottom:50px;
-      line-height:1.8;
-    }
+.section-top h2{
+    font-size:3rem;
+}
 
-    .mission-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:24px;
+.section-top p{
+    max-width:650px;
+    color:#8b8b8b;
+    line-height:1.8;
+}
+
+/* INTERACTIVE MISSION CARDS */
+
+.mission-wrapper{
+    display:flex;
+    gap:24px;
+    height:650px;
+}
+
+.mission-card{
+    position:relative;
+    flex:1;
+    border-radius:32px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.65s cubic-bezier(.2,.8,.2,1);
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    align-items:flex-end;
+
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.mission-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(to top,
+    rgba(0,0,0,.95),
+    rgba(0,0,0,.35),
+    transparent);
+}
+
+.mission-card:hover{
+    flex:2.5;
+}
+
+.mission-content{
+    position:relative;
+    z-index:10;
+    padding:40px;
+    width:100%;
+}
+
+.mission-tag{
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:999px;
+    background:rgba(220,38,38,.15);
+    color:#f87171;
+    margin-bottom:18px;
+    font-size:.82rem;
+    font-weight:700;
+}
+
+.mission-content h3{
+    font-size:2rem;
+    margin-bottom:18px;
+}
+
+.mission-content p{
+    color:#b3b3b3;
+    line-height:1.8;
+    max-width:480px;
+    margin-bottom:25px;
+}
+
+/* XP BAR */
+
+.xp-row{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.xp{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.05);
+    padding:10px 16px;
+    border-radius:14px;
+    font-size:.92rem;
+}
+
+/* BACKGROUNDS */
+
+.m1{
+    background-image:
+    linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.45)),
+    url('https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?q=80&w=1974&auto=format&fit=crop');
+}
+
+.m2{
+    background-image:
+    linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.45)),
+    url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1974&auto=format&fit=crop');
+}
+
+.m3{
+    background-image:
+    linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.45)),
+    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1974&auto=format&fit=crop');
+}
+
+.m4{
+    background-image:
+    linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.45)),
+    url('https://images.unsplash.com/photo-1493246318656-5bfd4cfb29b8?q=80&w=1974&auto=format&fit=crop');
+}
+
+/* GLOW */
+
+.glow{
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:rgba(220,38,38,.08);
+    border-radius:50%;
+    filter:blur(120px);
+    top:-200px;
+    right:-100px;
+    z-index:-1;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px){
+
+    .mission-wrapper{
+        flex-direction:column;
+        height:auto;
     }
 
     .mission-card{
-      background:linear-gradient(145deg,#111827,#09090b);
-      border-radius:24px;
-      padding:28px;
-      border:1px solid rgba(255,255,255,.05);
-      transition:.3s;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .mission-card::before{
-      content:'';
-      position:absolute;
-      width:120px;
-      height:120px;
-      background:#dc262622;
-      border-radius:50%;
-      top:-30px;
-      right:-30px;
+        min-height:500px;
     }
 
     .mission-card:hover{
-      transform:translateY(-8px);
-      border-color:#dc2626;
+        flex:1;
     }
 
-    .mission-card h3{
-      margin-bottom:14px;
-      font-size:1.4rem;
+}
+
+@media(max-width:850px){
+
+    .hero h1{
+        font-size:4rem;
     }
 
-    .mission-card p{
-      color:#9ca3af;
-      line-height:1.7;
-      margin-bottom:18px;
-    }
-
-    .tag{
-      display:inline-block;
-      background:#dc262622;
-      color:#f87171;
-      padding:8px 14px;
-      border-radius:999px;
-      font-size:.85rem;
-      font-weight:600;
-    }
-
-    .classes{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:24px;
-    }
-
-    .class-card{
-      background:#0f172a;
-      border-radius:22px;
-      padding:26px;
-      border:1px solid rgba(255,255,255,.05);
-      transition:.3s;
-    }
-
-    .class-card:hover{
-      transform:translateY(-5px);
-      border-color:#dc2626;
-    }
-
-    .class-card h3{
-      margin-bottom:16px;
-    }
-
-    .class-card ul{
-      padding-left:18px;
-      color:#9ca3af;
-      line-height:1.8;
-    }
-
-    .trophy-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:22px;
-    }
-
-    .trophy-card{
-      background:linear-gradient(145deg,#111827,#09090b);
-      border-radius:22px;
-      padding:24px;
-      border:1px solid rgba(255,255,255,.05);
-      transition:.3s;
-    }
-
-    .trophy-card:hover{
-      border-color:gold;
-      transform:translateY(-5px);
-    }
-
-    .trophy-card h4{
-      margin-bottom:12px;
-      color:#facc15;
-    }
-
-    .trophy-card p{
-      color:#9ca3af;
-      line-height:1.7;
-    }
-
-    .footer{
-      padding:50px 7%;
-      border-top:1px solid rgba(255,255,255,.05);
-      margin-top:70px;
-      text-align:center;
-      color:#6b7280;
-    }
-
-    @media(max-width:1000px){
-
-      .hero{
+    .section-top{
         flex-direction:column;
         align-items:flex-start;
-      }
-
-      .hero-card{
-        width:100%;
-      }
-
-      .hero-text h1{
-        font-size:3.4rem;
-      }
-
-      .nav-links{
-        display:none;
-      }
-
     }
 
-  </style>
+}
+
+@media(max-width:650px){
+
+    .hero h1{
+        font-size:3rem;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .mission-card{
+        min-height:420px;
+    }
+
+}
+
+</style>
 </head>
+
 <body>
 
-  <nav class="navbar">
+<div class="background"></div>
+<div class="glow"></div>
+
+<nav>
+
     <div class="logo">
-      GameRoute <span>Archive</span>
+        GameRoute <span>Archive</span>
     </div>
 
     <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Campaign</a>
-      <a href="#">Classes</a>
-      <a href="#">Trophies</a>
-      <a href="#">Database</a>
-      <a href="#" class="discord-btn">Join Discord</a>
-    </div>
-  </nav>
-
-  <section class="hero">
-
-    <div class="hero-text">
-      <h1>
-        The Ultimate <span>Ghost of Yōtei Legends</span> Database
-      </h1>
-
-      <p>
-        Explore missions, incursions, trophies, classes, progression systems,
-        difficulty scaling, XP multipliers, survival maps, raids, and endgame builds
-        inside the most complete Ghost of Yōtei Legends archive.
-      </p>
-
-      <div class="hero-buttons">
-        <a href="#" class="primary-btn">Explore Database</a>
-        <a href="#" class="secondary-btn">View Missions</a>
-      </div>
+        <a href="#">Campaign</a>
+        <a href="#">Classes</a>
+        <a href="#">Trophies</a>
+        <a href="#">Survival</a>
+        <a href="#">Raid</a>
     </div>
 
-    <div class="hero-card">
+</nav>
 
-      <h3>Difficulty Overview</h3>
+<section class="hero">
 
-      <div class="difficulty-grid">
-
-        <div class="difficulty">
-          <h4>Bronze</h4>
-          <p>200 XP</p>
-          <p>3 Onryo Tokens</p>
-          <p>Recommended Ki: 5</p>
-        </div>
-
-        <div class="difficulty">
-          <h4>Silver</h4>
-          <p>400 XP</p>
-          <p>2 Onryo Tokens</p>
-          <p>Recommended Ki: 20</p>
-        </div>
-
-        <div class="difficulty">
-          <h4>Gold</h4>
-          <p>600 XP</p>
-          <p>1 Onryo Token</p>
-          <p>Recommended Ki: 70</p>
-        </div>
-
-        <div class="difficulty">
-          <h4>Platinum</h4>
-          <p>800 XP</p>
-          <p>No Tokens</p>
-          <p>Recommended Ki: 100</p>
-        </div>
-
-      </div>
-
+    <div class="hero-sub">
+        Ghost of Yōtei Legends Database
     </div>
 
-  </section>
+    <h1>
+        Discover Every Mission,
+        Build, Trophy & Raid.
+    </h1>
 
-  <section>
-
-    <h2 class="section-title">Campaign Missions</h2>
-
-    <p class="section-subtitle">
-      Fight through The Spider campaign and uncover the most dangerous encounters,
-      incursions, survival challenges, and raid missions in Ghost of Yōtei Legends.
+    <p>
+        Explore the definitive Ghost of Yōtei Legends database featuring
+        campaign progression, incursions, classes, survival maps,
+        XP systems, Onryo Tokens, raid mechanics, and endgame builds.
     </p>
 
-    <div class="mission-grid">
+    <div class="hero-buttons">
 
-      <div class="mission-card">
-        <span class="tag">Mission I</span>
-        <h3>Black Powder, Black Hearts</h3>
-        <p>
-          Battle through the opening chapter of The Spider storyline and survive
-          increasingly aggressive enemy encounters.
-        </p>
-      </div>
+        <a href="#" class="primary-btn">
+            Explore Database
+        </a>
 
-      <div class="mission-card">
-        <span class="tag">Mission II</span>
-        <h3>Bloodthirsty Jubokko</h3>
-        <p>
-          Face deadly supernatural threats while pushing deeper into cursed territory
-          filled with ambushes and challenge modifiers.
-        </p>
-      </div>
-
-      <div class="mission-card">
-        <span class="tag">Mission III</span>
-        <h3>The Final Safeguards</h3>
-        <p>
-          The final confrontation of The Spider campaign featuring endgame-level
-          combat and coordinated survival mechanics.
-        </p>
-      </div>
-
-      <div class="mission-card">
-        <span class="tag">Incursion</span>
-        <h3>The Spider's Web</h3>
-        <p>
-          A high difficulty incursion mission designed for advanced players seeking
-          greater rewards and harder enemy encounters.
-        </p>
-      </div>
+        <a href="#" class="secondary-btn">
+            View Campaign
+        </a>
 
     </div>
 
-  </section>
+</section>
 
-  <section>
+<section class="campaign">
 
-    <h2 class="section-title">Classes</h2>
+    <div class="section-top">
 
-    <p class="section-subtitle">
-      Master unique combat styles and specialize your role through aggressive melee,
-      ranged precision, stealth assassinations, or frontline support.
-    </p>
+        <div>
+            <h2>Campaign Missions</h2>
+        </div>
 
-    <div class="classes">
-
-      <div class="class-card">
-        <h3>Samurai</h3>
-
-        <ul>
-          <li>Frontline melee fighter</li>
-          <li>High survivability</li>
-          <li>Strong sustained combat</li>
-          <li>Best for aggressive players</li>
-        </ul>
-      </div>
-
-      <div class="class-card">
-        <h3>Archer</h3>
-
-        <ul>
-          <li>Long-range precision damage</li>
-          <li>Excellent crowd control</li>
-          <li>Strong support pressure</li>
-          <li>High mobility gameplay</li>
-        </ul>
-      </div>
-
-      <div class="class-card">
-        <h3>Mercenary</h3>
-
-        <ul>
-          <li>Balanced combat/support role</li>
-          <li>Team utility focus</li>
-          <li>Adaptable loadouts</li>
-          <li>Reliable survivability</li>
-        </ul>
-      </div>
-
-      <div class="class-card">
-        <h3>Shinobi</h3>
-
-        <ul>
-          <li>Stealth assassination specialist</li>
-          <li>Fast mobility</li>
-          <li>High burst damage</li>
-          <li>Weak in direct combat</li>
-        </ul>
-      </div>
+        <p>
+            Experience the full Spider campaign through interactive mission
+            panels featuring XP scaling, difficulty progression,
+            Onryo Tokens, challenge modifiers, and recommended Ki levels.
+        </p>
 
     </div>
 
-  </section>
+    <div class="mission-wrapper">
 
-  <section>
+        <div class="mission-card m1">
 
-    <h2 class="section-title">Trophies</h2>
+            <div class="mission-content">
 
-    <p class="section-subtitle">
-      Track progression achievements and complete the hardest challenges across
-      Ghost of Yōtei Legends.
-    </p>
+                <div class="mission-tag">
+                    Mission I
+                </div>
 
-    <div class="trophy-grid">
+                <h3>Black Powder, Black Hearts</h3>
 
-      <div class="trophy-card">
-        <h4>Tale of Revenge</h4>
-        <p>Complete all story missions.</p>
-      </div>
+                <p>
+                    The beginning of The Spider campaign. Fight through
+                    enemy ambushes and survive increasingly aggressive encounters.
+                </p>
 
-      <div class="trophy-card">
-        <h4>Student No More</h4>
-        <p>Reach Rank 25 with one class.</p>
-      </div>
+                <div class="xp-row">
+                    <div class="xp">Bronze • 200 XP</div>
+                    <div class="xp">Silver • 400 XP</div>
+                    <div class="xp">Gold • 600 XP</div>
+                    <div class="xp">Platinum • 800 XP</div>
+                </div>
 
-      <div class="trophy-card">
-        <h4>Vengeance Fulfilled</h4>
-        <p>Complete all four incursions.</p>
-      </div>
+            </div>
 
-      <div class="trophy-card">
-        <h4>Ghost Unyielding</h4>
-        <p>Complete a Survival mission on Gold difficulty or higher.</p>
-      </div>
+        </div>
 
-      <div class="trophy-card">
-        <h4>No More Lessons</h4>
-        <p>Reach Rank 25 with all classes.</p>
-      </div>
+        <div class="mission-card m2">
 
-      <div class="trophy-card">
-        <h4>Kaibyaku</h4>
-        <p>Complete The Dragon and Lord Saito raid missions.</p>
-      </div>
+            <div class="mission-content">
+
+                <div class="mission-tag">
+                    Mission II
+                </div>
+
+                <h3>Bloodthirsty Jubokko</h3>
+
+                <p>
+                    Push deeper into cursed territory while challenge cards
+                    and aggressive enemy encounters increase mission difficulty.
+                </p>
+
+                <div class="xp-row">
+                    <div class="xp">Bronze • 200 XP</div>
+                    <div class="xp">Silver • 400 XP</div>
+                    <div class="xp">Gold • 600 XP</div>
+                    <div class="xp">Platinum • 800 XP</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mission-card m3">
+
+            <div class="mission-content">
+
+                <div class="mission-tag">
+                    Mission III
+                </div>
+
+                <h3>The Final Safeguards</h3>
+
+                <p>
+                    Face high-end enemy encounters and coordinated combat
+                    mechanics during the final confrontation of The Spider campaign.
+                </p>
+
+                <div class="xp-row">
+                    <div class="xp">Bronze • 200 XP</div>
+                    <div class="xp">Silver • 400 XP</div>
+                    <div class="xp">Gold • 600 XP</div>
+                    <div class="xp">Platinum • 800 XP</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mission-card m4">
+
+            <div class="mission-content">
+
+                <div class="mission-tag">
+                    Incursion
+                </div>
+
+                <h3>The Spider's Web</h3>
+
+                <p>
+                    A high difficulty incursion built for advanced players
+                    seeking stronger enemies and greater endgame rewards.
+                </p>
+
+                <div class="xp-row">
+                    <div class="xp">Bronze • 280 XP</div>
+                    <div class="xp">Silver • 560 XP</div>
+                    <div class="xp">Gold • 840 XP</div>
+                    <div class="xp">Platinum • 1120 XP</div>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-  </section>
-
-  <footer class="footer">
-    © 2026 GameRoute Archive — Ghost of Yōtei Legends Database
-  </footer>
+</section>
 
 </body>
 </html>
