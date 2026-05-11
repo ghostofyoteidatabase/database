@@ -1,188 +1,197 @@
+// =========================================
+// GameRoute Archive - Cinematic UI Script
+// =========================================
+
 // ===============================
-// GameRoute Archive - script.js
+// NAVBAR SCROLL EFFECT
 // ===============================
 
-// Smooth Scroll Navigation
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+const nav = document.querySelector("nav");
 
-        const target = document.querySelector(this.getAttribute('href'));
+window.addEventListener("scroll", () => {
 
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-    });
-});
+    if(window.scrollY > 40){
 
-// Navbar Scroll Effect
-const navbar = document.querySelector('.navbar');
+        nav.style.background = "rgba(0,0,0,.72)";
+        nav.style.borderBottom = "1px solid rgba(220,38,38,.18)";
+        nav.style.backdropFilter = "blur(22px)";
 
-window.addEventListener('scroll', () => {
-
-    if (window.scrollY > 40) {
-        navbar.style.background = 'rgba(5,5,8,0.92)';
-        navbar.style.borderBottom = '1px solid rgba(220,38,38,.25)';
     } else {
-        navbar.style.background = 'rgba(5,5,8,.65)';
-        navbar.style.borderBottom = '1px solid rgba(255,255,255,.05)';
+
+        nav.style.background = "rgba(0,0,0,.28)";
+        nav.style.borderBottom = "1px solid rgba(255,255,255,.04)";
+
     }
 
 });
 
-// Fade In Animation
-const fadeElements = document.querySelectorAll(
-    '.mission-card, .class-card, .trophy-card, .difficulty'
-);
+// ===============================
+// MISSION CARD ACTIVE EXPANSION
+// ===============================
 
-const fadeInObserver = new IntersectionObserver((entries) => {
+const missionCards = document.querySelectorAll(".mission-card");
 
-    entries.forEach(entry => {
+missionCards.forEach(card => {
 
-        if (entry.isIntersecting) {
+    card.addEventListener("mouseenter", () => {
 
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0px)';
+        missionCards.forEach(otherCard => {
 
-        }
+            otherCard.style.filter = "brightness(.45)";
+            otherCard.style.transform = "scale(.97)";
+
+        });
+
+        card.style.filter = "brightness(1)";
+        card.style.transform = "scale(1.02)";
+        card.style.zIndex = "5";
 
     });
 
-}, {
-    threshold: 0.15
+    card.addEventListener("mouseleave", () => {
+
+        missionCards.forEach(otherCard => {
+
+            otherCard.style.filter = "brightness(1)";
+            otherCard.style.transform = "scale(1)";
+            otherCard.style.zIndex = "1";
+
+        });
+
+    });
+
 });
 
-fadeElements.forEach(element => {
+// ===============================
+// MOUSE LIGHT EFFECT
+// ===============================
 
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(30px)';
-    element.style.transition = 'all .7s ease';
+missionCards.forEach(card => {
 
-    fadeInObserver.observe(element);
+    card.addEventListener("mousemove", e => {
 
-});
+        const rect = card.getBoundingClientRect();
 
-// Hero Title Glow Animation
-const heroTitle = document.querySelector('.hero-text h1 span');
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-setInterval(() => {
-
-    heroTitle.style.textShadow =
-        '0 0 20px rgba(220,38,38,.9), 0 0 40px rgba(220,38,38,.6)';
-
-    setTimeout(() => {
-
-        heroTitle.style.textShadow =
-            '0 0 8px rgba(220,38,38,.5)';
-
-    }, 1200);
-
-}, 2500);
-
-// Interactive Difficulty Hover
-const difficulties = document.querySelectorAll('.difficulty');
-
-difficulties.forEach(card => {
-
-    card.addEventListener('mouseenter', () => {
+        card.style.backgroundPosition =
+        `${50 + (x / rect.width) * 8}% ${50 + (y / rect.height) * 8}%`;
 
         card.style.boxShadow =
-            '0 0 25px rgba(220,38,38,.25)';
+        `${(x - rect.width/2)/18}px ${(y - rect.height/2)/18}px 50px rgba(0,0,0,.6)`;
 
     });
 
-    card.addEventListener('mouseleave', () => {
+    card.addEventListener("mouseleave", () => {
 
-        card.style.boxShadow = 'none';
+        card.style.backgroundPosition = "center";
+        card.style.boxShadow = "0 15px 40px rgba(0,0,0,.35)";
 
     });
 
 });
 
-// XP Progress Bars
-const xpValues = [200, 400, 600, 800];
-const xpContainer = document.createElement('div');
+// ===============================
+// HERO TITLE PARALLAX
+// ===============================
 
-xpContainer.classList.add('xp-chart');
+const heroTitle = document.querySelector(".hero h1");
 
-xpContainer.style.marginTop = '25px';
+window.addEventListener("mousemove", e => {
 
-difficulties.forEach((card, index) => {
+    const x = (window.innerWidth / 2 - e.pageX) / 60;
+    const y = (window.innerHeight / 2 - e.pageY) / 60;
 
-    const barWrapper = document.createElement('div');
-    const bar = document.createElement('div');
-
-    barWrapper.style.width = '100%';
-    barWrapper.style.height = '10px';
-    barWrapper.style.background = '#111827';
-    barWrapper.style.borderRadius = '999px';
-    barWrapper.style.marginTop = '12px';
-    barWrapper.style.overflow = 'hidden';
-
-    bar.style.height = '100%';
-    bar.style.width = '0%';
-    bar.style.borderRadius = '999px';
-    bar.style.background = 'linear-gradient(90deg,#dc2626,#ef4444)';
-    bar.style.transition = 'width 1.5s ease';
-
-    barWrapper.appendChild(bar);
-    card.appendChild(barWrapper);
-
-    setTimeout(() => {
-
-        const percentage = (xpValues[index] / 800) * 100;
-        bar.style.width = `${percentage}%`;
-
-    }, 500);
+    heroTitle.style.transform =
+    `translate(${x}px, ${y}px)`;
 
 });
 
-// Random Floating Background Particles
-function createParticle() {
+// ===============================
+// BUTTON HOVER GLOW
+// ===============================
 
-    const particle = document.createElement('div');
+const buttons = document.querySelectorAll(
+    ".primary-btn, .secondary-btn"
+);
 
-    particle.classList.add('particle');
+buttons.forEach(btn => {
+
+    btn.addEventListener("mousemove", e => {
+
+        const rect = btn.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        btn.style.backgroundImage =
+        `radial-gradient(circle at ${x}px ${y}px,
+        rgba(255,255,255,.16),
+        transparent 40%)`;
+
+    });
+
+    btn.addEventListener("mouseleave", () => {
+
+        btn.style.backgroundImage = "none";
+
+    });
+
+});
+
+// ===============================
+// FLOATING PARTICLES
+// ===============================
+
+function createParticle(){
+
+    const particle = document.createElement("div");
+
+    particle.classList.add("particle");
 
     document.body.appendChild(particle);
 
-    const size = Math.random() * 4 + 2;
+    const size = Math.random() * 5 + 2;
 
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
 
-    particle.style.position = 'fixed';
-    particle.style.background = 'rgba(220,38,38,.4)';
-    particle.style.borderRadius = '50%';
+    particle.style.position = "fixed";
+    particle.style.borderRadius = "50%";
 
-    particle.style.left = `${Math.random() * window.innerWidth}px`;
-    particle.style.top = `${window.innerHeight + 20}px`;
+    particle.style.background =
+    `rgba(220,38,38,${Math.random() * .5})`;
 
-    particle.style.pointerEvents = 'none';
-    particle.style.zIndex = '-1';
+    particle.style.left =
+    `${Math.random() * window.innerWidth}px`;
+
+    particle.style.top =
+    `${window.innerHeight + 50}px`;
+
+    particle.style.pointerEvents = "none";
+    particle.style.zIndex = "-1";
 
     particle.animate([
 
         {
-            transform: 'translateY(0px)',
-            opacity: 0
+            transform:"translateY(0px)",
+            opacity:0
         },
 
         {
-            opacity: .7
+            opacity:1
         },
 
         {
-            transform: `translateY(-${window.innerHeight + 200}px)`,
-            opacity: 0
+            transform:`translateY(-${window.innerHeight + 300}px)`,
+            opacity:0
         }
 
-    ], {
+    ],{
 
-        duration: Math.random() * 6000 + 6000,
-        easing: 'linear'
+        duration:Math.random() * 7000 + 5000,
+        easing:"linear"
 
     });
 
@@ -190,68 +199,118 @@ function createParticle() {
 
         particle.remove();
 
-    }, 12000);
+    },12000);
 
 }
 
-setInterval(createParticle, 450);
+setInterval(createParticle, 180);
 
-// Trophy Hover Glow
-const trophies = document.querySelectorAll('.trophy-card');
+// ===============================
+// SCROLL FADE-IN
+// ===============================
 
-trophies.forEach(card => {
+const fadeElements = document.querySelectorAll(
+    ".mission-card, .section-top"
+);
 
-    card.addEventListener('mouseenter', () => {
+const observer = new IntersectionObserver(entries => {
 
-        card.style.boxShadow =
-            '0 0 30px rgba(250,204,21,.25)';
+    entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+            entry.target.style.opacity = "1";
+            entry.target.style.transform =
+            "translateY(0px)";
+
+        }
 
     });
 
-    card.addEventListener('mouseleave', () => {
+},{
+    threshold:.15
+});
 
-        card.style.boxShadow = 'none';
+fadeElements.forEach(el => {
 
-    });
+    el.style.opacity = "0";
+    el.style.transform = "translateY(70px)";
+    el.style.transition =
+    "all 1s cubic-bezier(.2,.8,.2,1)";
+
+    observer.observe(el);
 
 });
 
-// Mission Card Tilt Effect
-const missionCards = document.querySelectorAll('.mission-card');
+// ===============================
+// AUTO GLOW PULSE
+// ===============================
 
-missionCards.forEach(card => {
+const glow = document.querySelector(".glow");
 
-    card.addEventListener('mousemove', e => {
+setInterval(() => {
 
-        const rect = card.getBoundingClientRect();
+    glow.animate([
 
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        {
+            opacity:.55,
+            transform:"scale(1)"
+        },
 
-        const rotateX = ((y / rect.height) - 0.5) * -6;
-        const rotateY = ((x / rect.width) - 0.5) * 6;
+        {
+            opacity:.9,
+            transform:"scale(1.12)"
+        },
 
-        card.style.transform =
-            `perspective(1000px)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             translateY(-8px)`;
+        {
+            opacity:.55,
+            transform:"scale(1)"
+        }
+
+    ],{
+
+        duration:4000
 
     });
 
-    card.addEventListener('mouseleave', () => {
+},4000);
 
-        card.style.transform =
-            'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+// ===============================
+// TYPEWRITER EFFECT
+// ===============================
 
-    });
+const heroSub = document.querySelector(".hero-sub");
 
-});
+const originalText = heroSub.innerText;
 
-// Console Welcome Message
+heroSub.innerText = "";
+
+let i = 0;
+
+function typeText(){
+
+    if(i < originalText.length){
+
+        heroSub.innerText += originalText.charAt(i);
+
+        i++;
+
+        setTimeout(typeText,45);
+
+    }
+
+}
+
+typeText();
+
+// ===============================
+// CONSOLE MESSAGE
+// ===============================
+
 console.log(`
-========================================
+===========================================
  GameRoute Archive Initialized
  Ghost of Yōtei Legends Database
-========================================
+ Cinematic UI Loaded
+===========================================
 `);
