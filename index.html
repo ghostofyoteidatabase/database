@@ -98,6 +98,7 @@
     }
 
     .build-top {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -124,6 +125,24 @@
     .epic {
       background: #7c3aed;
       color: white;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #991b1b;
+      color: white;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .remove-btn:hover {
+      background: #dc2626;
     }
 
     .effect {
@@ -166,6 +185,18 @@
   <script>
     const defaultData = {
       Samurai: {
+        "Melee 1": [],
+        "Melee 2": [],
+        "Melee 3": [],
+        Range1: [],
+        Charm: [],
+        "Ghost Tool 1": [],
+        "Ghost Tool 2": []
+      },
+
+      Archer: {},
+      Mercenery: {},
+      Shinobi: {
         "Melee 1": [
           {
             name: "Thundorus Katana",
@@ -269,11 +300,7 @@
         Charm: [],
         "Ghost Tool 1": [],
         "Ghost Tool 2": []
-      },
-
-      Archer: {},
-      Mercenery: {},
-      Shinobi: {}
+      }
     };
 
     let builds = JSON.parse(localStorage.getItem("ghostBuildServer")) || defaultData;
@@ -329,6 +356,7 @@
           .map(build => `
             <div class="build-card">
               <div class="build-top">
+                <button class="remove-btn" data-name="${build.name}">✕</button>
                 <div class="build-name">${build.name}</div>
                 <div class="rarity ${build.rarity.toLowerCase()}">
                   ${build.rarity}
@@ -373,6 +401,18 @@
           save();
           renderGrid();
         };
+
+        box.querySelectorAll(".remove-btn").forEach(btn => {
+          btn.onclick = () => {
+            const buildName = btn.dataset.name;
+
+            builds[activeClass][category] = builds[activeClass][category]
+              .filter(b => b.name !== buildName);
+
+            save();
+            renderGrid();
+          };
+        });
 
         grid.appendChild(box);
       });
