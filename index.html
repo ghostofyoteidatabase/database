@@ -1,31 +1,386 @@
-<div class="brain-wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghost Build Server</title>
 
-    <div class="brain-core"></div>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, Arial, sans-serif;
+    }
 
-    <div class="brain-path"></div>
+    body {
+      background: linear-gradient(to bottom right, #050505, #111111, #000000);
+      color: white;
+      min-height: 100vh;
+      padding: 24px;
+    }
 
-    <div class="brain-node left">
-        <div class="node-pulse"></div>
-        <h3>Iaido Katana</h3>
-        <p>Lightning Iaido • Heavenly Slash</p>
-    </div>
+    h1 {
+      font-size: 48px;
+      font-weight: 900;
+    }
 
-    <div class="brain-node right">
-        <div class="node-pulse"></div>
-        <h3>Thunderous Katana</h3>
-        <p>Spirit Throw Passive</p>
-    </div>
+    .subtitle {
+      color: #888;
+      margin-top: 8px;
+      margin-bottom: 30px;
+    }
 
-    <div class="brain-node left lower">
-        <div class="node-pulse"></div>
-        <h3>Vigilant Yari</h3>
-        <p>Interrupt Sickles</p>
-    </div>
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
 
-    <div class="brain-node right lower">
-        <div class="node-pulse"></div>
-        <h3>Relentless Yari</h3>
-        <p>Extreme Sickle Damage</p>
-    </div>
+    .tab {
+      padding: 12px 20px;
+      border-radius: 16px;
+      border: 1px solid #333;
+      background: #111;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
 
-</div>
+    .tab.active {
+      background: white;
+      color: black;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .category {
+      background: rgba(20,20,20,0.9);
+      border: 1px solid #2b2b2b;
+      border-radius: 24px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .category-header h2 {
+      font-size: 24px;
+    }
+
+    .add-btn {
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .build-card {
+      background: rgba(0,0,0,0.7);
+      border: 1px solid #333;
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .build-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .build-name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .rarity {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .legendary {
+      background: gold;
+      color: black;
+    }
+
+    .epic {
+      background: #7c3aed;
+      color: white;
+    }
+
+    .effect {
+      color: #bbb;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill {
+      background: #222;
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+
+    .empty {
+      color: #666;
+      text-align: center;
+      padding: 30px;
+      border: 1px dashed #333;
+      border-radius: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Ghost Build Server</h1>
+  <div class="subtitle">Permanent build archive stored directly in your browser</div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const defaultData = {
+      Samurai: {
+        "Melee 1": [
+          {
+            name: "Thundorus Katana",
+            rarity: "Legendary",
+            effect: "Katana spirit moves have a 100% chance to throw nearby enemies",
+            skills: ["Lightning Laido", "Heavenly Slash"]
+          },
+          {
+            name: "Shattering Katana",
+            rarity: "Epic",
+            effect: "Effective against swords",
+            skills: ["Lightning Laido", "Heavenly Slash"]
+          }
+        ],
+
+        "Melee 2": [
+          {
+            name: "Relentless Yari",
+            rarity: "Epic",
+            effect: "Extremely effective against sickles",
+            skills: ["Typhoon Kick", "Thundering Wave"]
+          },
+          {
+            name: "Vigilant Yari",
+            rarity: "Epic",
+            effect: "Parries interrupt sickle combos",
+            skills: ["Typhoon Kick", "Thundering Wave"]
+          },
+          {
+            name: "Swift Yari",
+            rarity: "Epic",
+            effect: "Effective against sickles",
+            skills: ["Typhoon Sweep", "Typhoon Kick", "Thundering Wave"]
+          }
+        ],
+
+        "Melee 3": [
+          {
+            name: "Vanishing Kusarigama",
+            rarity: "Epic",
+            effect: "Killing enemies with Claw and Talon makes you vanish",
+            skills: ["Rolling Sweeps", "Ferocious Whirlwind", "Claw and Talon"]
+          },
+          {
+            name: "Relentless Kusarigama",
+            rarity: "Epic",
+            effect: "Extremely effective against shields",
+            skills: ["Ferocious Whirlwind", "Claw and Talon"]
+          },
+          {
+            name: "Nimble Kusarigama",
+            rarity: "Epic",
+            effect: "Effective against shields",
+            skills: ["Rolling Sweep", "Ferocious Whirlwind", "Claw and Talon"]
+          }
+        ],
+
+        Range1: [
+          {
+            name: "Storm Hankyu",
+            rarity: "Epic",
+            effect: "Rapid fire shots but cannot be aimed"
+          },
+          {
+            name: "Hurricane Hankyu",
+            rarity: "Epic",
+            effect: "Fires at double speed and inflicts Maim"
+          },
+          {
+            name: "The Weightless Spirit",
+            rarity: "Legendary",
+            effect: "Pierces shields and helmets"
+          },
+          {
+            name: "Lightning Tanegashima",
+            rarity: "Legendary",
+            effect: "Instant reloads on headshots or kills"
+          },
+          {
+            name: "Concussion Bomb",
+            rarity: "Epic",
+            effect: "Interrupts enemies caught in its blast"
+          },
+          {
+            name: "Vengeful Onibi Bomb",
+            rarity: "Epic",
+            effect: "Creates friendly Onibi"
+          },
+          {
+            name: "Blind Bomb",
+            rarity: "Epic",
+            effect: "Blinds enemies and creates a Shrouded Area"
+          },
+          {
+            name: "Healing Blind Bomb",
+            rarity: "Legendary",
+            effect: "Heals allies and blinds enemies"
+          }
+        ],
+
+        Charm: [],
+        "Ghost Tool 1": [],
+        "Ghost Tool 2": []
+      },
+
+      Archer: {},
+      Mercenery: {},
+      Shinobi: {}
+    };
+
+    let builds = JSON.parse(localStorage.getItem("ghostBuildServer")) || defaultData;
+    let activeClass = "Samurai";
+
+    const tabs = document.getElementById("tabs");
+    const grid = document.getElementById("grid");
+
+    const categories = [
+      "Melee 1",
+      "Melee 2",
+      "Melee 3",
+      "Range1",
+      "Charm",
+      "Ghost Tool 1",
+      "Ghost Tool 2"
+    ];
+
+    function save() {
+      localStorage.setItem("ghostBuildServer", JSON.stringify(builds));
+    }
+
+    function renderTabs() {
+      tabs.innerHTML = "";
+
+      Object.keys(builds).forEach(cls => {
+        const button = document.createElement("button");
+        button.className = "tab" + (activeClass === cls ? " active" : "");
+        button.innerText = cls;
+
+        button.onclick = () => {
+          activeClass = cls;
+          renderTabs();
+          renderGrid();
+        };
+
+        tabs.appendChild(button);
+      });
+    }
+
+    function renderGrid() {
+      grid.innerHTML = "";
+
+      categories.forEach(category => {
+        if (!builds[activeClass][category]) {
+          builds[activeClass][category] = [];
+        }
+
+        const box = document.createElement("div");
+        box.className = "category";
+
+        const cards = builds[activeClass][category]
+          .map(build => `
+            <div class="build-card">
+              <div class="build-top">
+                <div class="build-name">${build.name}</div>
+                <div class="rarity ${build.rarity.toLowerCase()}">
+                  ${build.rarity}
+                </div>
+              </div>
+
+              <div class="effect">${build.effect}</div>
+
+              <div class="skills">
+                ${(build.skills || [])
+                  .map(skill => `<div class="skill">${skill}</div>`)
+                  .join("")}
+              </div>
+            </div>
+          `)
+          .join("");
+
+        box.innerHTML = `
+          <div class="category-header">
+            <h2>${category}</h2>
+            <button class="add-btn">+ Add</button>
+          </div>
+
+          ${cards || '<div class="empty">No builds added yet</div>'}
+        `;
+
+        box.querySelector(".add-btn").onclick = () => {
+          const name = prompt("Build name:");
+          if (!name) return;
+
+          const effect = prompt("Effect:") || "No effect added";
+          const rarity = prompt("Rarity (Epic/Legendary):") || "Epic";
+          const skills = prompt("Skills separated by commas:") || "";
+
+          builds[activeClass][category].push({
+            name,
+            effect,
+            rarity,
+            skills: skills.split(",").map(s => s.trim()).filter(Boolean)
+          });
+
+          save();
+          renderGrid();
+        };
+
+        grid.appendChild(box);
+      });
+    }
+
+    renderTabs();
+    renderGrid();
+  </script>
+
+</body>
+</html>
